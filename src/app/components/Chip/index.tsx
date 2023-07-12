@@ -5,7 +5,7 @@ type Props = {
 };
 const Chip = ({ children }: Props) => {
     return (
-        <div className='rounded-3xl shadow-sm py-1 px-4 bg-white'>
+        <div className='text-xs p-1 px-4 rounded-xl shadow-sm bg-white'>
             {children}
         </div>
     );

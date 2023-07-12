@@ -6,7 +6,7 @@ const logoFont = AnuratiFont({ src: "./Anurati-Regular.otf" });
 
 const Header = () => {
     return (
-        <div className='px-4 pt-4 pb-2 gap-6 flex justify-between'>
+        <header className='px-4 pt-4 gap-6 flex justify-between'>
             <h1 className={`p-2 ${logoFont.className} logo text-xl`}>MORA</h1>
 
             <div className='flex gap-4 items-center'>
@@ -15,7 +15,7 @@ const Header = () => {
                 </button>
                 <RxHamburgerMenu className='text-2xl cursor-pointer' />
             </div>
-        </div>
+        </header>
     );
 };
 
