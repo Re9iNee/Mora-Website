@@ -1,3 +1,4 @@
+import DiscoverLatestAi from "./Frames/DiscoverLatestAi";
 import Header from "./Frames/Header";
 import HeroFrame from "./Frames/HeroFrame";
 
@@ -7,6 +8,8 @@ export default function Home() {
             <Header />
 
             <HeroFrame />
+
+            <DiscoverLatestAi />
         </main>
     );
 }

@@ -4,11 +4,11 @@ import React from "react";
 
 const HeroFrame = () => {
     return (
-        <section className='text-purple-500 uppercase mx-4 flex flex-col gap-1 text-2xl font-bold items-stretch'>
-            <h1>
+        <section className='text-purple-500 uppercase mx-4 flex flex-col gap-1  items-stretch'>
+            <h1 className='text-2xl font-bold'>
                 Discover <span className='text-black'>your</span>
             </h1>
-            <h1>
+            <h1 className='text-2xl font-bold'>
                 <span className='text-black'>Perfect</span> Ai Assistant
             </h1>
 
