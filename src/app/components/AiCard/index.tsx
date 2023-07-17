@@ -5,7 +5,7 @@ import Chip from "../Chip";
 type Props = {
     link: string;
 };
-const Card = ({ link }: Props) => {
+const AICard = ({ link }: Props) => {
     return (
         <div className='flex flex-col gap-2 p-3 bg-gray-200 rounded-2xl'>
             <div className='bg-white rounded-lg grid place-items-center py-8'>
@@ -40,4 +40,4 @@ const Card = ({ link }: Props) => {
     );
 };
 
-export default Card;
+export default AICard;

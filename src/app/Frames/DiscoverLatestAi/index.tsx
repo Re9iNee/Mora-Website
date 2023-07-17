@@ -1,4 +1,4 @@
-import Card from "@/app/components/Card";
+import AICard from "@/app/components/AiCard";
 import React from "react";
 
 const DiscoverLatestAi = () => {
@@ -12,9 +12,9 @@ const DiscoverLatestAi = () => {
             </h1>
 
             <div className='flex flex-col gap-4'>
-                <Card link='https://google.com' />
-                <Card link='https://google.com' />
-                <Card link='https://google.com' />
+                <AICard link='https://google.com' />
+                <AICard link='https://google.com' />
+                <AICard link='https://google.com' />
             </div>
         </section>
     );

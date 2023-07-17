@@ -1,0 +1,50 @@
+[
+    {
+        "id": "1",
+        "title": "CHAT GPT professional guide 2023",
+        "image": {
+            "url": "/Wallpaper.png",
+            "alt": "its a picture about something"
+        },
+        "tags": [
+            { "id": "1", "text": "coding" },
+            { "id": "2", "text": "text-based" },
+            { "id": "3", "text": "GPT-3" }
+        ],
+        "dateCreated": "Jul 4, 2023",
+        "description": "From crafting concise and compelling emails to engaging in professional chat conversations, the Chat GPT Professional Guide equips you with practical tips and strategies to convey your messages effectively and leave a lasting impression.",
+        "link": "https://google.com"
+    },
+    {
+        "id": "2",
+        "title": "CHAT GPT professional guide 2023",
+        "image": {
+            "url": "/Wallpaper.png",
+            "alt": "its a picture about something"
+        },
+        "tags": [
+            { "id": "1", "text": "coding" },
+            { "id": "2", "text": "text-based" },
+            { "id": "3", "text": "GPT-3" }
+        ],
+        "dateCreated": "Jul 4, 2023",
+        "description": "From crafting concise and compelling emails to engaging in professional chat conversations, the Chat GPT Professional Guide equips you with practical tips and strategies to convey your messages effectively and leave a lasting impression.",
+        "link": "https://google.com"
+    },
+    {
+        "id": "3",
+        "title": "CHAT GPT professional guide 2023",
+        "image": {
+            "url": "/Wallpaper.png",
+            "alt": "its a picture about something"
+        },
+        "tags": [
+            { "id": "1", "text": "coding" },
+            { "id": "2", "text": "text-based" },
+            { "id": "3", "text": "GPT-3" }
+        ],
+        "dateCreated": "Jul 4, 2023",
+        "description": "From crafting concise and compelling emails to engaging in professional chat conversations, the Chat GPT Professional Guide equips you with practical tips and strategies to convey your messages effectively and leave a lasting impression.",
+        "link": "https://google.com"
+    }
+]

@@ -1,6 +1,7 @@
 import DiscoverLatestAi from "./Frames/DiscoverLatestAi";
 import Header from "./Frames/Header";
 import HeroFrame from "./Frames/HeroFrame";
+import MasterYourAi from "./Frames/MasterYourAi";
 
 export default function Home() {
     return (
@@ -10,6 +11,8 @@ export default function Home() {
             <HeroFrame />
 
             <DiscoverLatestAi />
+
+            <MasterYourAi />
         </main>
     );
 }
