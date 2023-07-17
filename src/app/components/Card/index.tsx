@@ -14,7 +14,7 @@ const Card = ({ link }: Props) => {
 
             <div className='flex-col flex gap-1'>
                 <div className='inline-flex justify-between items-center'>
-                    <h1 className='text-md'>Anima.Ai</h1>
+                    <h1 className='text-md font-bold'>Anima.Ai</h1>
                     <a
                         href={link}
                         target='_blank'
@@ -25,13 +25,13 @@ const Card = ({ link }: Props) => {
                 </div>
 
                 <div className='inline-flex gap-1 flex-wrap items-center'>
-                    <h5 className='text-xs'>Advanced</h5>
+                    <h5 className='text-xs font-semibold'>Advanced</h5>
                     <Chip>visual</Chip>
                     <Chip>video</Chip>
                     <Chip>2023</Chip>
                 </div>
 
-                <h5 className='text-xs'>
+                <h5 className='text-xs font-extralight'>
                     Lorem ipsum dolor sit amet consectetur. Tincidunt sed duis
                     cursus turpis at magna sed dignissim.
                 </h5>

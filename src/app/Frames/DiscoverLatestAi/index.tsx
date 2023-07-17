@@ -4,7 +4,9 @@ import React from "react";
 const DiscoverLatestAi = () => {
     return (
         <section className='bg-purple-500 flex flex-col items-stretch p-4 pb-8'>
-            <h1 className='text-2xl text-white mb-2'>Discover Latest Ai 🚀</h1>
+            <h1 className='text-2xl text-white mb-2 font-bold'>
+                Discover Latest Ai 🚀
+            </h1>
             <h1 className='text-xs text-white mb-6'>
                 Recently Added Ai, Suggested by the community !!
             </h1>
