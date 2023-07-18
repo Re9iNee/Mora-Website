@@ -26,12 +26,15 @@ body {
         rgb(var(--background-start-rgb));
 }
 
-.logo {
-    text-align: center;
+.gradient-logo {
+    background: linear-gradient(
+        225deg,
+        #00c1ec 0%,
+        #4170da 50.67%,
+        #4700df 100%
+    );
 
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 0.0225rem;
-    text-transform: uppercase;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
