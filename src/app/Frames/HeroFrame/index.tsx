@@ -4,16 +4,16 @@ import React from "react";
 
 const HeroFrame = () => {
     return (
-        <section className='text-purple-500 uppercase mx-4 flex flex-col gap-1  items-stretch'>
+        <section className='uppercase mx-4 flex flex-col gap-1  items-stretch'>
             <h1 className='text-2xl font-bold'>
-                Discover <span className='text-black'>your</span>
+                <span className='text-purple-500'>Discover</span> your
             </h1>
             <h1 className='text-2xl font-bold'>
-                <span className='text-black'>Perfect</span> Ai Assistant
+                Perfect <span className='text-purple-500'>Ai Assistant</span>
             </h1>
 
             <SearchInput />
-            <div className='flex flex-wrap text-black gap-1 mb-4'>
+            <div className='flex flex-wrap gap-1 mb-4'>
                 <Chip>Video generating ai</Chip>
                 <Chip>Photo editing</Chip>
                 <Chip>Coding</Chip>
