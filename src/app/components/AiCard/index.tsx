@@ -7,7 +7,11 @@ type Props = {
 };
 const AICard = ({ link }: Props) => {
     return (
-        <div className='flex flex-col gap-2 p-3 bg-gray-200 rounded-2xl'>
+        <div
+            className='flex flex-col gap-2 p-3 bg-gray-200 rounded-2xl 
+            sm:flex-row
+            '
+        >
             <div className='bg-white rounded-lg grid place-items-center py-8'>
                 <Image src='./logo.svg' alt='' width={40} height={40} />
             </div>

@@ -4,7 +4,7 @@ import React from "react";
 
 const HeroFrame = () => {
     return (
-        <section className='uppercase mx-4 flex flex-col gap-1  items-stretch sm:py-14 sm:px-24 sm:rounded-2xl sm:text-center hero-frame-background'>
+        <section className='uppercase mx-4 flex flex-col gap-1  items-stretch sm:py-14 sm:px-24 sm:rounded-2xl sm:text-center'>
             <h1 className='text-2xl font-bold'>
                 <span className='text-purple-500'>Discover</span> your
             </h1>
