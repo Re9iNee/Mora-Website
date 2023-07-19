@@ -1,16 +1,30 @@
+import Link from "next/link";
 import React from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 const Header = () => {
     return (
         <header className='px-4 pt-4 gap-6 flex justify-between'>
-            <h1 className='p-2 font-anurati gradient-logo text-xl'>MORA</h1>
+            <div className='inline-flex items-center gap-2'>
+                <h1 className='p-2 font-anurati gradient-logo text-xl sm:text-2xl'>
+                    MORA
+                </h1>
+                <Link
+                    className='p-2 text-xs hidden sm:block'
+                    href={"/categories"}
+                >
+                    Categories
+                </Link>
+                <Link className='p-2 text-xs hidden sm:block' href={"/blog"}>
+                    Blog
+                </Link>
+            </div>
 
             <div className='flex gap-4 items-center'>
                 <button className='text-xs text-white bg-purple-600 rounded-3xl px-3 py-2 cursor-pointer'>
                     Sign-up for Updates
                 </button>
-                <RxHamburgerMenu className='text-2xl cursor-pointer' />
+                <RxHamburgerMenu className='cursor-pointer sm:hidden' />
             </div>
         </header>
     );
