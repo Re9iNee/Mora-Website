@@ -50,3 +50,11 @@ body {
 .custom-box-shadow {
     box-shadow: 0px 24px 64px 0px rgba(0, 0, 0, 0.08);
 }
+
+.custom-gradient {
+    @apply bg-gradient-to-tr from-purple-600 via-purple-700 to-blue-800;
+}
+
+.text-gradient {
+    @apply text-transparent bg-clip-text custom-gradient;
+}

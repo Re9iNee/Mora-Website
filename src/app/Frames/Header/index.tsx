@@ -22,7 +22,7 @@ const Header = () => {
 
             <div className='flex gap-4 items-center'>
                 {/* TODO: BG gradient */}
-                <button className='text-xs text-white bg-purple-600 rounded-3xl px-3 py-2 cursor-pointer font-bold'>
+                <button className='custom-gradient text-xs text-white bg-purple-600 rounded-3xl px-3 py-2 cursor-pointer font-bold'>
                     Sign-up for Updates
                 </button>
                 <RxHamburgerMenu className='cursor-pointer sm:hidden' />

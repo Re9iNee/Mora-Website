@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import Chip from "../Chip";
 import { IoIosArrowForward } from "react-icons/io";
 import AiChip from "./AiChip";
 
@@ -10,11 +9,11 @@ type Props = {
 const AICard = ({ link }: Props) => {
     return (
         <div
-            className='flex flex-col gap-2 p-3 bg-gray-200 rounded-2xl 
+            className='flex flex-col gap-2 p-3 bg-neutral-50 rounded-2xl 
             sm:flex-row
             '
         >
-            <div className='bg-white rounded-lg grid place-items-center py-8'>
+            <div className='bg-white rounded-lg grid place-items-center py-8 shadow'>
                 <Image src='./logo.svg' alt='' width={40} height={40} />
             </div>
 
