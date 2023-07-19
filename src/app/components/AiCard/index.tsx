@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import Chip from "../Chip";
+import { IoIosArrowForward } from "react-icons/io";
+import AiChip from "./AiChip";
 
 type Props = {
     link: string;
@@ -17,25 +19,25 @@ const AICard = ({ link }: Props) => {
             </div>
 
             <div className='flex-col flex gap-1'>
-                <div className='inline-flex justify-between items-center'>
-                    <h1 className='text-md font-bold'>Anima.Ai</h1>
+                <div className='inline-flex justify-between items-center py-1 pl-1'>
+                    <h1 className='text-sm font-extrabold'>Anima.Ai</h1>
                     <a
                         href={link}
                         target='_blank'
-                        className='text-purple-500 text-3xl'
+                        className='text-purple-500 text-xl'
                     >
-                        &gt;
+                        <IoIosArrowForward />
                     </a>
                 </div>
 
                 <div className='inline-flex gap-1 flex-wrap items-center'>
-                    <h5 className='text-xs font-semibold'>Advanced</h5>
-                    <Chip>visual</Chip>
-                    <Chip>video</Chip>
-                    <Chip>2023</Chip>
+                    <h5 className='text-xs p-1'>Advanced</h5>
+                    <AiChip>visual</AiChip>
+                    <AiChip>video</AiChip>
+                    <AiChip>2023</AiChip>
                 </div>
 
-                <h5 className='text-xs font-extralight'>
+                <h5 className='text-xs p-1'>
                     Lorem ipsum dolor sit amet consectetur. Tincidunt sed duis
                     cursus turpis at magna sed dignissim.
                 </h5>

@@ -10,7 +10,7 @@ const DiscoverLatestAi = () => {
         '
         >
             <h1
-                className='text-2xl text-white mb-2 font-bold
+                className='text-2xl text-white mb-2 font-black
                 sm:text-center
                 sm:text-4xl
                 '

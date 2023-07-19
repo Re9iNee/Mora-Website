@@ -15,7 +15,7 @@ const HeroFrame = () => {
             </h1>
 
             <SearchInput />
-            <div className='flex flex-wrap gap-1 mb-4 sm:justify-center'>
+            <div className='flex flex-wrap gap-2 mb-4 sm:justify-center'>
                 <Chip>Video generating ai</Chip>
                 <Chip>Photo editing</Chip>
                 <Chip>Coding</Chip>
