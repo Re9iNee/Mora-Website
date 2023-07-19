@@ -3,6 +3,7 @@ import RelativeImage from "../Image";
 import Tags from "../../../../interfaces/Tags";
 import BlogChip from "./BlogChip";
 import Link from "next/link";
+import { IoIosArrowForward } from "react-icons/io";
 
 type Props = {
     link: string;
@@ -21,7 +22,7 @@ const BlogCard = ({
     dateCreated,
 }: Props) => {
     return (
-        <section className='p-4 px-6 flex flex-col gap-3 bg-white rounded-2xl shadow-2xl'>
+        <section className='p-4 px-6 flex flex-col gap-3 bg-white rounded-2xl shadow-2xl shadow-slate-200'>
             <RelativeImage link={image.url} alt={image.alt} />
             <h1 className='font-bold'>{title}</h1>
             <span className='font-extralight text-xs'>{dateCreated}</span>
@@ -34,9 +35,10 @@ const BlogCard = ({
             </section>
             <Link
                 href={link}
-                className='text-gradient cursor-pointer self-end py-2 font-semibold'
+                className='text-gradient text-xs cursor-pointer self-end py-2 font-medium inline-flex items-center gap-1'
             >
-                Continue Reading &gt;
+                Continue Reading
+                <IoIosArrowForward className='text-purple-800' />
             </Link>
         </section>
     );

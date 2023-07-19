@@ -58,3 +58,7 @@ body {
 .text-gradient {
     @apply text-transparent bg-clip-text custom-gradient;
 }
+
+.footer-shadow-mobile {
+    box-shadow: 0px -12px 80px 0px rgba(0, 0, 0, 0.08);
+}

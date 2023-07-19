@@ -10,7 +10,7 @@ const logoFont = AnuratiRegular({
 
 const notoSans = Noto_Sans({
     subsets: ["latin"],
-    weight: ["400", "700", "800", "900"],
+    weight: ["200", "400", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
