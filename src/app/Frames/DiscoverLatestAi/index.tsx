@@ -3,11 +3,27 @@ import React from "react";
 
 const DiscoverLatestAi = () => {
     return (
-        <section className='bg-purple-500 flex flex-col items-stretch p-4 pb-8'>
-            <h1 className='text-2xl text-white mb-2 font-bold'>
+        <section
+            className='bg-purple-500 flex flex-col items-stretch p-4 pb-8 sm:mx-16
+            sm:rounded-3xl
+            sm:pt-8
+        '
+        >
+            <h1
+                className='text-2xl text-white mb-2 font-bold
+                sm:text-center
+                sm:text-4xl
+                '
+            >
                 Discover Latest Ai 🚀
             </h1>
-            <h1 className='text-xs text-white mb-6'>
+            <h1
+                className='text-xs text-white mb-6
+                sm:text-center
+                sm:text-sm
+                sm:mb-8
+                '
+            >
                 Recently Added Ai, Suggested by the community !!
             </h1>
 
