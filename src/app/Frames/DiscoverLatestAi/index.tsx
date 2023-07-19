@@ -4,7 +4,7 @@ import React from "react";
 const DiscoverLatestAi = () => {
     return (
         <section
-            className='bg-purple-500 flex flex-col items-stretch p-4 pb-8 sm:mx-16
+            className='bg-gradient-to-tr from-purple-600 via-violet-700 to-blue-800 flex flex-col items-stretch p-4 pb-8 sm:mx-16
             sm:rounded-3xl
             sm:pt-8
         '
