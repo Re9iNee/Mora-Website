@@ -38,3 +38,11 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.hero-frame-background {
+    background-image: url("./images/HeroFrameBackgroundImage.jpeg");
+
+    object-fit: contain;
+    /* background-position: center; */
+    background-repeat: no-repeat, no-repeat;
+}
