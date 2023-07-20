@@ -39,8 +39,13 @@ const BlogCard = ({
                 <span className='font-extralight text-xs p-1'>
                     {dateCreated}
                 </span>
-                {/* TODO: text ellipsis more than 2 lines */}
-                <p className='font-extralight p-1 font-xs'>{description}</p>
+
+                <p className='font-extralight p-1 font-xs 
+                    sm:line-clamp-3
+                    '
+                >
+                    {description}
+                </p>
                 <section className='inline-flex gap-1 flex-wrap items-center'>
                     {tags.map((tag) => (
                         <BlogChip key={tag.id}>{tag.text}</BlogChip>
