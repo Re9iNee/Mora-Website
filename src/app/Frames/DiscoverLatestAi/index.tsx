@@ -32,6 +32,15 @@ const DiscoverLatestAi = () => {
                 <AICard link='https://google.com' />
                 <AICard link='https://google.com' />
             </div>
+
+            <h3
+                className='hidden text-white text-xl font-semibold text-center 
+                sm:block
+                sm:mt-8
+                '
+            >
+                Stay tuned for latest AI tools 😎
+            </h3>
         </section>
     );
 };

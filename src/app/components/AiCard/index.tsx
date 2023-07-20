@@ -13,7 +13,11 @@ const AICard = ({ link }: Props) => {
             sm:flex-row
             '
         >
-            <div className='bg-white rounded-lg grid place-items-center py-8 shadow'>
+            <div
+                className='bg-white rounded-lg grid place-items-center py-8 shadow
+                sm:p-8
+                '
+            >
                 <Image src='./logo.svg' alt='' width={40} height={40} />
             </div>
 
@@ -23,9 +27,14 @@ const AICard = ({ link }: Props) => {
                     <a
                         href={link}
                         target='_blank'
-                        className='text-purple-500 text-xl'
+                        className='text-purple-500 text-xs font-semibold 
+                        sm:inline-flex
+                        sm:items-center
+                        sm:p-1
+                        sm:gap-1'
                     >
-                        <IoIosArrowForward />
+                        <span className='hidden sm:block'>Check it out</span>
+                        <IoIosArrowForward className='text-xl' />
                     </a>
                 </div>
 
