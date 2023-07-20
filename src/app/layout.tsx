@@ -16,6 +16,7 @@ const notoSans = Noto_Sans({
 export const metadata: Metadata = {
     title: "MORA - The AI Wiki Website",
     description: "Mora is a Wiki for AIs",
+    themeColor: "#ffffff",
 };
 
 export default function RootLayout({
