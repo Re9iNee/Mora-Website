@@ -22,24 +22,37 @@ const BlogCard = ({
     dateCreated,
 }: Props) => {
     return (
-        <section className='p-4 px-6 flex flex-col gap-3 bg-white rounded-2xl shadow-2xl shadow-slate-200'>
+        <section
+            className='p-4 px-6 flex flex-col gap-3 bg-white rounded-2xl shadow-2xl shadow-slate-200
+            sm:flex-row
+            sm:grid
+            sm:grid-cols-12
+            '
+        >
             <RelativeImage link={image.url} alt={image.alt} />
-            <h1 className='font-bold'>{title}</h1>
-            <span className='font-extralight text-xs'>{dateCreated}</span>
-            <p className='font-extralight p-1'>{description}</p>
-
-            <section className='inline-flex gap-1 flex-wrap items-center'>
-                {tags.map((tag) => (
-                    <BlogChip key={tag.id}>{tag.text}</BlogChip>
-                ))}
-            </section>
-            <Link
-                href={link}
-                className='text-gradient text-xs cursor-pointer self-end py-2 font-medium inline-flex items-center gap-1'
+            <div
+                className='flex flex-col gap-3 
+                sm:col-span-7
+                '
             >
-                Continue Reading
-                <IoIosArrowForward className='text-purple-800' />
-            </Link>
+                <h1 className='font-extrabold'>{title}</h1>
+                <span className='font-extralight text-xs p-1'>
+                    {dateCreated}
+                </span>
+                <p className='font-extralight p-1 font-xs'>{description}</p>
+                <section className='inline-flex gap-1 flex-wrap items-center'>
+                    {tags.map((tag) => (
+                        <BlogChip key={tag.id}>{tag.text}</BlogChip>
+                    ))}
+                </section>
+                <Link
+                    href={link}
+                    className='text-gradient text-xs cursor-pointer self-end py-2 font-medium inline-flex items-center gap-1'
+                >
+                    Continue Reading
+                    <IoIosArrowForward className='text-purple-800' />
+                </Link>
+            </div>
         </section>
     );
 };

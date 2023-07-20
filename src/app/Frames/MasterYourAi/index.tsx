@@ -5,9 +5,21 @@ import blogPosts from "../../../../Mocks/BlogPosts.json";
 
 const MasterYourAi = () => {
     return (
-        <section className='p-4 mt-1 '>
-            <h1 className='text-2xl mb-2 font-bold'>Master Your Ai 🥇</h1>
-            <h1 className='text-xs mb-6'>
+        <section className='p-4 mt-1'>
+            <h1
+                className='text-2xl mb-2 font-black
+                sm:text-4xl
+                sm:text-center
+                '
+            >
+                Master Your Ai 🥇
+            </h1>
+            <h1
+                className='text-xs mb-6 
+                sm:text-sm
+                sm:text-center
+                '
+            >
                 Learn and master your tools with in-depth blogs
             </h1>
 

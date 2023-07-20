@@ -7,7 +7,12 @@ type Props = {
 };
 const RelativeImage = ({ link, alt }: Props) => {
     return (
-        <div className='relative w-full h-40'>
+        <div
+            className='relative w-full h-40
+            sm:h-auto
+            sm:col-span-5
+            '
+        >
             <Image
                 fill
                 alt={alt}
