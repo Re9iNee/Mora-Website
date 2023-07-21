@@ -5,11 +5,15 @@ import blogPosts from "../../../../Mocks/BlogPosts.json";
 
 const MasterYourAi = () => {
     return (
-        <section className='p-4 mt-1'>
+        <section
+            className='p-4 mt-1 
+            sm:col-span-12
+            md:col-span-10 md:col-start-2
+            '
+        >
             <h1
                 className='text-2xl mb-2 font-black
-                sm:text-4xl
-                sm:text-center
+                sm:text-4xl sm:text-center
                 '
             >
                 Master Your Ai 🥇

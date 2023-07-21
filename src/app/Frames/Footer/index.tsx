@@ -2,20 +2,23 @@ import EmailSignUpInput from "./EmailSignUpInput";
 
 const Footer = () => {
     return (
-        <footer className='mt-16 p-10 pt-6 flex flex-col items-center gap-8 bg-white rounded-t-largest footer-shadow-mobile'>
-            <section className='text-center'>
+        <footer
+            className='mt-16 p-10 pt-6 flex flex-col items-center gap-8 bg-white rounded-t-largest footer-shadow-mobile 
+            sm:col-span-12
+            sm:grid sm:grid-cols-12
+            '
+        >
+            <section className='text-center sm:col-span-12'>
                 <h2
                     className='gradient-logo font-anurati text-4xl font-black
-                    sm:text-5xl
-                    sm:drop-shadow-lg
+                    sm:text-5xl sm:drop-shadow-lg
                     '
                 >
                     MORA
                 </h2>
                 <h4
                     className='gradient-logo font-extralight tracking-widest
-                    sm:text-xl
-                    sm:drop-shadow-lg
+                    sm:text-xl sm:drop-shadow-lg
                     '
                 >
                     Do More with Less Work
@@ -32,11 +35,7 @@ const Footer = () => {
 
             <EmailSignUpInput />
 
-            <p
-                className='text-xs font-light text-gray-500 text-center
-
-                '
-            >
+            <p className='text-xs font-light text-gray-500 text-center sm:col-span-12'>
                 By signing up to MORA, You’ll receive updates directly in your
                 inbox.
             </p>

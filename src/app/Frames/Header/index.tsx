@@ -4,7 +4,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 const Header = () => {
     return (
-        <header className='px-4 pt-4 gap-6 flex justify-between'>
+        <header className='px-4 pt-4 gap-6 flex justify-between sm:col-span-12'>
             <div className='inline-flex items-center gap-2'>
                 <h1
                     className='p-2 font-anurati gradient-logo text-xl 

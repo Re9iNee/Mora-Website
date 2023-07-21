@@ -21,7 +21,7 @@ const AICard = ({ link }: Props) => {
                 <Image src='./logo.svg' alt='' width={40} height={40} />
             </div>
 
-            <div className='flex-col flex gap-1'>
+            <div className='flex-col flex gap-1 sm:flex-grow'>
                 <div className='inline-flex justify-between items-center py-1 pl-1'>
                     <h1 className='text-sm font-extrabold'>Anima.Ai</h1>
                     <a
