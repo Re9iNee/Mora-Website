@@ -3,7 +3,12 @@ import { FiSearch } from "react-icons/fi";
 
 const SearchInput = () => {
     return (
-        <div className='relative mt-8 mb-2'>
+        <div
+            className='relative mt-8 mb-2
+            sm:col-span-8 sm:col-start-3
+            xl:col-span-6 xl:col-start-4
+            '
+        >
             <input
                 type='search'
                 placeholder='Video generating ai'
