@@ -30,7 +30,7 @@ Make sure you have the following tools installed on your system:
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/your-username/ai-wiki-website.git
+    git clone https://github.com/Re9iNee/Mora-Website.git
     cd ai-wiki-website
     ```
 
