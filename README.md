@@ -31,7 +31,7 @@ Make sure you have the following tools installed on your system:
 
     ```bash
     git clone https://github.com/Re9iNee/Mora-Website.git
-    cd ai-wiki-website
+    cd Mora-Website
     ```
 
 2. Install project dependencies:
