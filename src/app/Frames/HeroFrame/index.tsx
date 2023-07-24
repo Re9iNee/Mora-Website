@@ -6,9 +6,7 @@ const HeroFrame = () => {
     return (
         <section
             className='mx-4 flex flex-col gap-1 
-            sm:col-span-12
-            sm:py-14 sm:rounded-2xl sm:text-center sm:bg-gradient-to-tr from-gray-200 via-gray-400 to-gray-600 
-            sm:grid-cols-12 sm:grid'
+            sm:col-span-12 sm:py-14 sm:rounded-2xl sm:text-center sm:grid-cols-12 sm:grid'
         >
             <h1 className='text-2xl font-black uppercase sm:col-span-12'>
                 <span className='text-gradient'>Discover</span> your

@@ -8,6 +8,7 @@ export default function Home() {
     return (
         <main
             className='flex min-h-screen flex-col gap-8 bg-white
+            dark:bg-slate-900 dark:text-slate-50
             sm:grid sm:grid-cols-12
             '
         >

@@ -23,10 +23,8 @@ const BlogCard = ({
 }: Props) => {
     return (
         <section
-            className='p-4 px-6 flex flex-col gap-3 bg-white rounded-2xl shadow-2xl shadow-slate-200
-            sm:flex-row
-            sm:grid
-            sm:grid-cols-12
+            className='p-4 px-6 flex flex-col gap-3 bg-white rounded-2xl shadow-2xl shadow-slate-200 dark:bg-gray-800 dark:shadow-none
+            sm:flex-row sm:grid sm:grid-cols-12
             '
         >
             <RelativeImage link={image.url} alt={image.alt} />
@@ -40,7 +38,8 @@ const BlogCard = ({
                     {dateCreated}
                 </span>
 
-                <p className='font-extralight p-1 font-xs 
+                <p
+                    className='font-extralight p-1 font-xs dark:text-gray-400 
                     sm:line-clamp-3
                     '
                 >
@@ -53,10 +52,10 @@ const BlogCard = ({
                 </section>
                 <Link
                     href={link}
-                    className='text-gradient text-xs cursor-pointer self-end py-2 font-medium inline-flex items-center gap-1'
+                    className='text-gradient text-xs cursor-pointer self-end py-2 font-medium inline-flex items-center gap-1 dark:text-slate-50'
                 >
                     Continue Reading
-                    <IoIosArrowForward className='text-purple-800' />
+                    <IoIosArrowForward className='text-purple-800 dark:text-slate-50' />
                 </Link>
             </div>
         </section>

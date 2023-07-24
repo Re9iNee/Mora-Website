@@ -11,11 +11,13 @@ const AICard = ({ link }: Props) => {
         <div
             className='flex flex-col gap-2 p-3 bg-neutral-50 rounded-2xl 
             sm:flex-row
+            dark:bg-gray-800
             '
         >
             <div
                 className='bg-white rounded-lg grid place-items-center py-8 shadow
                 sm:p-8
+                dark:bg-slate-900
                 '
             >
                 <Image src='./logo.svg' alt='' width={40} height={40} />
@@ -27,11 +29,9 @@ const AICard = ({ link }: Props) => {
                     <a
                         href={link}
                         target='_blank'
-                        className='text-purple-500 text-xs font-semibold 
-                        sm:inline-flex
-                        sm:items-center
-                        sm:p-1
-                        sm:gap-1'
+                        className='text-purple-500 dark:text-slate-50 text-xs font-semibold 
+                        sm:inline-flex sm:items-center sm:p-1 sm:gap-1
+                        '
                     >
                         <span className='hidden sm:block'>Check it out</span>
                         <IoIosArrowForward className='text-xl' />
@@ -39,13 +39,13 @@ const AICard = ({ link }: Props) => {
                 </div>
 
                 <div className='inline-flex gap-1 flex-wrap items-center'>
-                    <h5 className='text-xs p-1'>Advanced</h5>
+                    <h5 className='text-xs p-1 dark:text-gray-400'>Advanced</h5>
                     <AiChip>visual</AiChip>
                     <AiChip>video</AiChip>
                     <AiChip>2023</AiChip>
                 </div>
 
-                <h5 className='text-xs p-1'>
+                <h5 className='text-xs p-1 dark:text-gray-400'>
                     Lorem ipsum dolor sit amet consectetur. Tincidunt sed duis
                     cursus turpis at magna sed dignissim.
                 </h5>
