@@ -9,6 +9,7 @@ const MasterYourAi = () => {
             className='p-4 mt-1 
             sm:col-span-12
             md:col-span-10 md:col-start-2
+            xl:col-span-6 xl:col-start-4
             '
         >
             <h1
