@@ -4,8 +4,12 @@ import React from "react";
 const DiscoverLatestAi = () => {
     return (
         <section
-            className='custom-gradient flex flex-col mt-8 items-stretch p-4 pb-8 
-            sm:rounded-3xl sm:pt-8 
+            className='custom-gradient mt-8 p-4 pb-8 max-w-screen-xl
+            sm:rounded-3xl sm:pt-8 sm:mx-16
+            md:mx-20
+            lg:mx-24
+            xl:mx-28
+            2xl:mx-auto
             '
         >
             <h1
@@ -26,7 +30,7 @@ const DiscoverLatestAi = () => {
                 Recently Added Ai, Suggested by the community !!
             </h1>
 
-            <div className='flex flex-col gap-4'>
+            <div>
                 <AICard link='https://google.com' />
                 <AICard link='https://google.com' />
                 <AICard link='https://google.com' />
