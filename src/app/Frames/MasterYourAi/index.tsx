@@ -5,13 +5,7 @@ import blogPosts from "../../../../Mocks/BlogPosts.json";
 
 const MasterYourAi = () => {
     return (
-        <section
-            className='p-4 mt-1 
-            sm:col-span-12
-            md:col-span-10 md:col-start-2
-            xl:col-span-6 xl:col-start-4
-            '
-        >
+        <section className='p-4 mt-8'>
             <h1
                 className='text-2xl mb-2 font-black
                 sm:text-4xl sm:text-center

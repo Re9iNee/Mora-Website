@@ -4,9 +4,8 @@ import React from "react";
 const DiscoverLatestAi = () => {
     return (
         <section
-            className='custom-gradient flex flex-col items-stretch p-4 pb-8 sm:rounded-3xl sm:pt-8 
-            sm:col-span-10 sm:col-start-2
-            xl:col-span-6 xl:col-start-4
+            className='custom-gradient flex flex-col mt-8 items-stretch p-4 pb-8 
+            sm:rounded-3xl sm:pt-8 
             '
         >
             <h1

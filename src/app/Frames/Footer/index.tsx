@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer
             className='mt-16 p-10 pt-6 flex flex-col items-center gap-8 bg-white rounded-t-largest footer-shadow-mobile dark:bg-gray-800
-            sm:col-span-12 sm:grid sm:grid-cols-12
+            sm:grid sm:grid-cols-12
             '
         >
             <section className='text-center sm:col-span-12'>
