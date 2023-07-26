@@ -5,7 +5,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 const Header = () => {
     return (
         <header
-            className='px-4 pt-4 gap-6 flex justify-between max-w-screen-xl mx-auto
+            className='px-4 pt-4 pb-1 gap-6 flex justify-between max-w-screen-xl mx-auto border-b border-slate-100 dark:border-slate-800
             sm:col-span-12
             '
         >
