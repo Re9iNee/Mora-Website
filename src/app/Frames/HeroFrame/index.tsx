@@ -5,7 +5,7 @@ import React from "react";
 const HeroFrame = () => {
     return (
         <section
-            className='mx-4 flex flex-col gap-1 mt-8
+            className='mx-4 flex flex-col gap-1 mt-8 max-w-screen-xl
             sm:py-14 sm:rounded-2xl sm:text-center sm:grid-cols-12 sm:grid sm:mx-auto'
         >
             <h1 className='text-2xl font-black uppercase sm:col-span-12'>
