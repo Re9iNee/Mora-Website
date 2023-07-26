@@ -9,7 +9,7 @@ type Props = {
 const AICard = ({ link }: Props) => {
     return (
         <div
-            className='flex flex-col gap-2 p-3 bg-neutral-50 rounded-2xl 
+            className='flex flex-col gap-2 p-3 bg-neutral-50 rounded-2xl mt-4 
             sm:flex-row
             dark:bg-gray-800
             '

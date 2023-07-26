@@ -26,7 +26,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en'>
-            <body className={`${notoSans.className} ${logoFont.variable}`}>
+            <body
+                className={`${notoSans.className} ${logoFont.variable} 
+                bg-white
+                dark:bg-slate-900 dark:text-slate-50`}
+            >
                 {children}
             </body>
         </html>

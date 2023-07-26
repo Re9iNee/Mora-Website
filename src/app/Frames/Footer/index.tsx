@@ -3,8 +3,8 @@ import EmailSignUpInput from "./EmailSignUpInput";
 const Footer = () => {
     return (
         <footer
-            className='mt-16 p-10 pt-6 flex flex-col items-center gap-8 bg-white rounded-t-largest footer-shadow-mobile dark:bg-gray-800
-            sm:col-span-12 sm:grid sm:grid-cols-12
+            className='max-w-screen-xl xl:mx-auto mt-16 p-10 pt-6 bg-white rounded-t-largest footer-shadow-mobile dark:bg-gray-800
+            sm:grid sm:grid-cols-12
             '
         >
             <section className='text-center sm:col-span-12'>
@@ -25,7 +25,7 @@ const Footer = () => {
             </section>
 
             <button
-                className='custom-gradient text-white text-sm font-semibold px-4 py-3 rounded-3xl
+                className='mt-8 custom-gradient text-white text-sm font-semibold px-4 py-3 rounded-3xl
                 sm:hidden
                 '
             >
@@ -34,7 +34,7 @@ const Footer = () => {
 
             <EmailSignUpInput />
 
-            <p className='text-xs font-light text-gray-500 text-center sm:col-span-12 dark:text-gray-400'>
+            <p className='mt-8 text-xs font-light text-gray-500 text-center sm:col-span-12 dark:text-gray-400'>
                 By signing up to MORA, You’ll receive updates directly in your
                 inbox.
             </p>
