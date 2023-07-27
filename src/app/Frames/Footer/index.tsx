@@ -3,7 +3,7 @@ import EmailSignUpInput from "./EmailSignUpInput";
 const Footer = () => {
     return (
         <footer
-            className='max-w-screen-xl xl:mx-auto mt-16 p-10 pt-6 bg-white rounded-t-largest footer-shadow-mobile dark:bg-gray-800
+            className='max-w-screen-xl text-center xl:mx-auto mt-16 p-10 pt-6 bg-white rounded-t-largest footer-shadow-mobile dark:bg-gray-800
             sm:grid sm:grid-cols-12
             '
         >
