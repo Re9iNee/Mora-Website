@@ -12,7 +12,7 @@ const EmailSignUpInput = () => {
             <input
                 type='email'
                 name='subscribe-email'
-                className='block w-full text-sm p-4 shadow-2xl shadow-slate-200 border border-slate-200 text-gray-900 rounded-3xl bg-neutral-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none 
+                className='block w-full text-sm p-4 shadow-2xl shadow-slate-200 border border-slate-200 text-gray-900 rounded-3xl bg-neutral-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-none outline-none 
                 sm:text-sm sm:leading-6'
                 placeholder='example@gmail.com'
             />
