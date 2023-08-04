@@ -1,6 +1,5 @@
 # AI Wiki Website
 
-![AI Wiki Logo](path/to/your/logo.png)
 
 The AI Wiki Website is an open-source project that serves as a comprehensive wiki gathering information on various artificial intelligence (AI) topics. It allows users to search for specific AI-related content and browse through a rich repository of articles and resources. The website is built using Next.js, Typescript, and Tailwind CSS for the frontend, and it integrates with a blog powered by WordPress. Additionally, the project aims to incorporate web3 authentication for enhanced security and user privacy.
 
