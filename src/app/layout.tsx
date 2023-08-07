@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import AnuratiRegular from "next/font/local";
+import { NextAuthProvider } from "./providers";
 
 const logoFont = AnuratiRegular({
     src: "./fonts/Anurati-Regular.otf",
@@ -31,7 +32,7 @@ export default function RootLayout({
                 bg-white
                 dark:bg-slate-900 dark:text-slate-50`}
             >
-                {children}
+                <NextAuthProvider>{children}</NextAuthProvider>
             </body>
         </html>
     );

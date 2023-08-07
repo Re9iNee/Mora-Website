@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
+    const { data: session } = useSession();
+
     return (
         <header
             className='px-4 pt-4 pb-1 gap-6 flex justify-between max-w-screen-xl mx-auto border-b border-slate-100 dark:border-slate-800
@@ -33,6 +38,14 @@ const Header = () => {
                 >
                     Blog
                 </Link>
+
+                {session ? (
+                    <button onClick={() => signOut()}>Sign Out</button>
+                ) : (
+                    <button onClick={() => signIn()}>Sign In</button>
+                )}
+
+                <pre>{JSON.stringify(session)}</pre>
             </div>
 
             <div className='flex gap-4 items-center'>
