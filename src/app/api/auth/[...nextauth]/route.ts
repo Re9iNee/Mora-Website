@@ -1,3 +1,5 @@
+import { prisma } from "@/lib/prisma";
+import { compare } from "bcryptjs";
 import NextAuth, { AuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -19,13 +21,28 @@ export const authOptions: AuthOptions = {
                 },
             },
             async authorize(credentials, req): Promise<User | null> {
-                const user: User = {
-                    id: "1",
-                    name: "Admin",
-                    email: "attarzadeh76@gmail.com",
-                };
+                if (!credentials?.email || !credentials.password) {
+                    return null;
+                }
 
-                return user;
+                const user = await prisma.user.findUnique({
+                    where: {
+                        email: credentials.email,
+                    },
+                });
+
+                if (
+                    !user ||
+                    !(await compare(credentials.password, user.password))
+                ) {
+                    return null;
+                }
+
+                return {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                };
             },
             type: "credentials",
         }),
