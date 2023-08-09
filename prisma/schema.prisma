@@ -15,6 +15,7 @@ model User {
   name     String
   email    String @unique
   password String
+  AI       AI[]
 }
 
 enum Complexity {
@@ -24,8 +25,8 @@ enum Complexity {
 }
 
 model AI {
-  id                       Int        @id @default(autoincrement())
-  name                     String     @db.VarChar(255)
+  id                       Int         @id @default(autoincrement())
+  name                     String      @db.VarChar(255)
   logo_url                 String?
   logo_alt                 String?
   origin_website           String
@@ -33,33 +34,42 @@ model AI {
   direct_use_url           String
   body                     String
   version                  Float?
-  slug                     String     @unique
+  slug                     String      @unique
   release_date             DateTime?
-  created_at               DateTime   @default(now())
-  updated_at               DateTime   @updatedAt
+  created_at               DateTime    @default(now())
+  updated_at               DateTime    @updatedAt
   search_engine_query_text String
-  videos                   Video[]
+  videos                   AI_Videos[]
   lessons                  Lesson[]
   tags                     Tag[]
+  created_by               User        @relation(fields: [author_id], references: [id])
+  author_id                Int
 }
 
 model Video {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   url         String
   description String
   metadata    String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  AI          AI?      @relation(fields: [aIId], references: [id])
-  aIId        Int?
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  AIs         AI_Videos[]
+}
+
+model AI_Videos {
+  video    Video @relation(fields: [video_id], references: [id])
+  video_id Int
+  AI       AI    @relation(fields: [ai_id], references: [id])
+  ai_id    Int
+
+  @@id([video_id, ai_id])
 }
 
 model Tag {
   id   Int    @id @default(autoincrement())
   name String @unique
-  AI   AI?    @relation(fields: [aIId], references: [id])
-  aIId Int?
+  AIs  AI[]
 }
 
 model Lesson {
@@ -67,6 +77,6 @@ model Lesson {
   name       String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  AI         AI?      @relation(fields: [aIId], references: [id])
-  aIId       Int?
+  AI         AI       @relation(fields: [AI_id], references: [id])
+  AI_id      Int
 }
