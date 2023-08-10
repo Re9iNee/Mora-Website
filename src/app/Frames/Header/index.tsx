@@ -44,8 +44,6 @@ const Header = () => {
                 ) : (
                     <button onClick={() => signIn()}>Sign In</button>
                 )}
-
-                <pre>{JSON.stringify(session)}</pre>
             </div>
 
             <div className='flex gap-4 items-center'>
