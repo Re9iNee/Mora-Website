@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  AI       AI[]
+}
+
+enum Complexity {
+  ADVANCED
+  NORMAL
+  EASY
+}
+
+model AI {
+  id                       Int         @id @default(autoincrement())
+  name                     String      @db.VarChar(255)
+  logo_url                 String?
+  logo_alt                 String?
+  origin_website           String
+  complexity_level         Complexity
+  direct_use_url           String
+  body                     String
+  version                  Float?
+  slug                     String      @unique
+  release_date             DateTime?
+  created_at               DateTime?   @default(now())
+  updated_at               DateTime    @updatedAt
+  search_engine_query_text String
+  videos                   AI_Videos[]
+  lessons                  Lesson[]
+  tags                     Tag[]
+  created_by               User        @relation(fields: [author_id], references: [id])
+  author_id                Int
+}
+
+model Video {
+  id          Int         @id @default(autoincrement())
+  name        String
+  url         String
+  description String
+  metadata    String
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  AIs         AI_Videos[]
+}
+
+model AI_Videos {
+  video    Video @relation(fields: [video_id], references: [id])
+  video_id Int
+  AI       AI    @relation(fields: [ai_id], references: [id])
+  ai_id    Int
+
+  @@id([video_id, ai_id])
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  AIs  AI[]
+}
+
+model Lesson {
+  id         Int      @id @default(autoincrement())
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  AI         AI       @relation(fields: [AI_id], references: [id])
+  AI_id      Int
+}
