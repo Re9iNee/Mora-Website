@@ -7,12 +7,12 @@ dotenv.config(); // Load the environment variables
 const prisma = new PrismaClient();
 
 async function createAdmin() {
-    const credential = process.env.ADMINS_CREDENTIAL;
-    if (!credential)
-        throw new Error("Please Add ADMINS_CREDENTIAL in .env file");
+    // const credential = process.env.ADMINS_CREDENTIAL;
+    // if (!credential)
+    //     throw new Error("Please Add ADMINS_CREDENTIAL in .env file");
 
-    const [email, password] = credential.split(":");
-    const hashedPassword = await hash(password, 12);
+    // const [email, password] = credential.split(":");
+    const hashedPassword = await hash("1234", 12);
 
     const newUser = await prisma.user.upsert({
         where: {
