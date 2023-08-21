@@ -5,13 +5,8 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator typegraphql {
-  provider = "typegraphql-prisma"
-  output   = "../prisma/generated/type-graphql"
-}
-
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -28,7 +23,7 @@ enum ComplexityLevel {
 }
 
 model User {
-  id                Int      @id @default(autoincrement())
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   password          String
   role              UserRole
@@ -44,82 +39,82 @@ model User {
 }
 
 model Lesson {
-  id               Int     @id @default(autoincrement())
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
   title            String
   sub_header       String
   body             String
   reading_duration Int
   Course           Course? @relation(fields: [courseId], references: [id])
-  courseId         Int?
+  courseId         String? @db.ObjectId
   completedBy      User?   @relation("completedLessons", fields: [completedById], references: [id])
   savedBy          User?   @relation("savedLessons", fields: [savedById], references: [id])
-  completedById    Int?
-  savedById        Int?
+  completedById    String? @db.ObjectId
+  savedById        String? @db.ObjectId
 
   @@map("lessons")
 }
 
 model Course {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   lessons     Lesson[]
   description String
   icon        Bytes
   tags        Tag[]
   quiz        Quiz     @relation(fields: [quizId], references: [id])
-  quizId      Int
+  quizId      String   @db.ObjectId
 
   @@map("courses")
 }
 
 model Tag {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   name     String  @unique
   Course   Course? @relation(fields: [courseId], references: [id])
-  courseId Int?
+  courseId String? @db.ObjectId
   AI       AI?     @relation(fields: [aIId], references: [id])
-  aIId     Int?
+  aIId     String? @db.ObjectId
 
   @@map("tags")
 }
 
 model Badge {
-  id     Int    @id @default(autoincrement())
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
   name   String
   icon   Bytes
-  price  Int    @default(0)
-  User   User?  @relation(fields: [userId], references: [id])
-  userId Int?
+  price  Int     @default(0)
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @db.ObjectId
 
   @@map("badges")
 }
 
 model AI {
-  id                Int             @id @default(autoincrement())
-  title             String          @db.VarChar(100)
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
   complexity_level  ComplexityLevel
   body              String
   tags              Tag[]
   origin_AI_website String
   AI_usuage_link    String
   version           Float
-  slug              String          @unique @db.VarChar(100)
+  slug              String          @unique
   AI_release_date   DateTime
   date_created      DateTime        @default(now())
   date_updated      DateTime        @default(now()) @updatedAt
   video             Video           @relation(fields: [videoId], references: [id])
-  videoId           Int
+  videoId           String          @db.ObjectId
   google_query_text String
-  logo              Bytes
+  logo              Bytes           @db.BinData
   logo_alt          String
   User              User?           @relation(fields: [userId], references: [id])
-  userId            Int?
+  userId            String?         @db.ObjectId
 
   @@map("AIs")
 }
 
 model Video {
-  id          Int    @id @default(autoincrement())
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   url         String
   description String
@@ -129,7 +124,7 @@ model Video {
 }
 
 model Quiz {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   questions Question[]
   points    Int
   Courses   Course[]
@@ -138,12 +133,12 @@ model Quiz {
 }
 
 model Question {
-  id               Int      @id @default(autoincrement())
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   possible_answers String[]
   answer           String
   Quiz             Quiz?    @relation(fields: [quizId], references: [id])
-  quizId           Int?
+  quizId           String?  @db.ObjectId
 
   @@map("questions")
 }
