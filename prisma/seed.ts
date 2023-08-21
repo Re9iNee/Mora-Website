@@ -15,12 +15,17 @@ async function createAdmin() {
     const hashedPassword = await hash(password, 12);
 
     const newUser = await prisma.user.upsert({
-        where: { email },
-        update: {},
+        where: {
+            email: "attarzadeh76@gmail.com",
+        },
         create: {
-            email: email,
-            name: "Admin",
+            role: "ADMIN",
+            name: "Reza Attarzadeh",
             password: hashedPassword,
+            email: "attarzadeh76@gmail.com",
+        },
+        update: {
+            name: "Agha Reza",
         },
     });
 
@@ -30,6 +35,8 @@ async function createAdmin() {
 createAdmin()
     .then(() => prisma.$disconnect())
     .catch(async (e) => {
+        console.error("HAPPENED AN ERROR DURING DB SEED");
+
         console.error(e);
         await prisma.$disconnect();
         process.exit(1);
