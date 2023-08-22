@@ -2,83 +2,145 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-  AI       AI[]
+enum UserRole {
+  ADMIN
+  AUTHOR
+  USER
 }
 
-enum Complexity {
+enum ComplexityLevel {
   ADVANCED
   NORMAL
   EASY
 }
 
-model AI {
-  id                       Int         @id @default(autoincrement())
-  name                     String      @db.VarChar(255)
-  logo_url                 String?
-  logo_alt                 String?
-  origin_website           String
-  complexity_level         Complexity
-  direct_use_url           String
-  body                     String
-  version                  Float?
-  slug                     String      @unique
-  release_date             DateTime?
-  created_at               DateTime?   @default(now())
-  updated_at               DateTime    @updatedAt
-  search_engine_query_text String
-  videos                   AI_Videos[]
-  lessons                  Lesson[]
-  tags                     Tag[]
-  created_by               User        @relation(fields: [author_id], references: [id])
-  author_id                Int
-}
+model User {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  password          String
+  email             String   @unique
+  role              UserRole
+  xp                Int      @default(0)
+  coin              Int      @default(0)
+  date_created      DateTime @default(now())
+  fav_AIs           AI[]
+  badges            Badge[]
+  completed_lessons Lesson[] @relation("completedLessons")
+  saved_lesssons    Lesson[] @relation("savedLessons")
 
-model Video {
-  id          Int         @id @default(autoincrement())
-  name        String
-  url         String
-  description String
-  metadata    String
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
-  AIs         AI_Videos[]
-}
-
-model AI_Videos {
-  video    Video @relation(fields: [video_id], references: [id])
-  video_id Int
-  AI       AI    @relation(fields: [ai_id], references: [id])
-  ai_id    Int
-
-  @@id([video_id, ai_id])
-}
-
-model Tag {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  AIs  AI[]
+  @@map("users")
 }
 
 model Lesson {
-  id         Int      @id @default(autoincrement())
-  name       String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  AI         AI       @relation(fields: [AI_id], references: [id])
-  AI_id      Int
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  sub_header       String
+  body             String
+  reading_duration Int
+  Course           Course? @relation(fields: [courseId], references: [id])
+  courseId         String? @db.ObjectId
+  completedBy      User?   @relation("completedLessons", fields: [completedById], references: [id])
+  savedBy          User?   @relation("savedLessons", fields: [savedById], references: [id])
+  completedById    String? @db.ObjectId
+  savedById        String? @db.ObjectId
+
+  @@map("lessons")
+}
+
+model Course {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  lessons     Lesson[]
+  description String
+  icon        Bytes
+  tags        Tag[]
+  quiz        Quiz     @relation(fields: [quizId], references: [id])
+  quizId      String   @db.ObjectId
+
+  @@map("courses")
+}
+
+model Tag {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String  @unique
+  Course   Course? @relation(fields: [courseId], references: [id])
+  courseId String? @db.ObjectId
+  AI       AI?     @relation(fields: [aIId], references: [id])
+  aIId     String? @db.ObjectId
+
+  @@map("tags")
+}
+
+model Badge {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  icon   Bytes
+  price  Int     @default(0)
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @db.ObjectId
+
+  @@map("badges")
+}
+
+model AI {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  complexity_level  ComplexityLevel @default(NORMAL)
+  body              String
+  tags              Tag[]
+  origin_AI_website String?
+  AI_usuage_link    String?
+  version           Float?
+  slug              String          @unique
+  AI_release_date   DateTime?
+  date_created      DateTime        @default(now())
+  date_updated      DateTime        @default(now()) @updatedAt
+  video             Video?          @relation(fields: [videoId], references: [id])
+  videoId           String?         @db.ObjectId
+  google_query_text String?
+  logo              Bytes?          @db.BinData
+  logo_alt          String?
+  User              User?           @relation(fields: [userId], references: [id])
+  userId            String?         @db.ObjectId
+
+  @@map("AIs")
+}
+
+model Video {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  url         String
+  description String
+  AI          AI[]
+
+  @@map("videos")
+}
+
+model Quiz {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  questions Question[]
+  points    Int
+  Courses   Course[]
+
+  @@map("quizes")
+}
+
+model Question {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  possible_answers String[]
+  answer           String
+  Quiz             Quiz?    @relation(fields: [quizId], references: [id])
+  quizId           String?  @db.ObjectId
+
+  @@map("questions")
 }
