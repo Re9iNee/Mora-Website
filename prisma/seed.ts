@@ -29,10 +29,31 @@ async function createAdmin() {
         },
     });
 
-    console.log({ newUser });
+    console.log("Upserted a new User", { newUser });
+}
+
+async function createAI() {
+    const newAI = await prisma.aI.upsert({
+        where: {
+            slug: "runaway",
+        },
+        create: {
+            slug: `runway-${Math.random() * 10}`,
+            title: "Runway",
+            body: "# Runway",
+        },
+        update: {
+            slug: `runway-${Math.random() * 10}`,
+            title: "Runway",
+            body: "# Runway",
+        },
+    });
+
+    console.log("Upserted a new AI", { newAI });
 }
 
 createAdmin()
+    .then(createAI)
     .then(() => prisma.$disconnect())
     .catch(async (e) => {
         console.error("HAPPENED AN ERROR DURING DB SEED");
