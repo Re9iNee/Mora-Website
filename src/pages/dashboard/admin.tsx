@@ -1,12 +1,25 @@
-import { useEffect } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { FC } from "react";
 
-const Dashboard = () => {
-  useEffect(() => {
-    signIn();
-  }, []);
+const AdminDashboardPage: FC = () => {
+    const { data: session, status } = useSession();
+    const router = useRouter();
 
-  return <h1>Welcome to Dashboard</h1>;
+    if (status === "loading") {
+        return <p>Loading...</p>;
+    }
+
+    if (!session?.user?.name) {
+        router.replace("/"); // Redirect non-admin users
+        return null;
+    }
+
+    return (
+        <div>
+            <h1>Welcome to the Admin Dashboard</h1>
+        </div>
+    );
 };
 
-export default Dashboard;
+export default AdminDashboardPage;
