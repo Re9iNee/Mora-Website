@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import Image from "next/image";
 
 import { Separator } from "@/components/ui/separator";
+import { Toaster } from "@/components/ui/toaster";
 import { SidebarNav } from "./components/sidebar-nav";
 
 export const metadata: Metadata = {
@@ -40,6 +40,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         </aside>
         <div className='flex-1 lg:max-w-2xl'>{children}</div>
       </div>
+      <Toaster />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React from "react";
+import { AiForm } from "./form";
 
 const AI = () => {
-  return <div>AI</div>;
+  return <AiForm />;
 };
 
 export default AI;
