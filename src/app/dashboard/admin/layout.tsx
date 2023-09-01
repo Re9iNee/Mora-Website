@@ -5,8 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { SidebarNav } from "./components/sidebar-nav";
 
 export const metadata: Metadata = {
-  title: "Forms",
-  description: "Advanced form example using react-hook-form and Zod.",
+  title: "Admin Dashboard",
+  description: "Manage Admin Dashboard",
 };
 
 const sidebarNavItems = [
