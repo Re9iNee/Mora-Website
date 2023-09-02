@@ -35,10 +35,10 @@ const profileFormSchema = z.object({
   slug: z.string(),
   body: z.string(),
   title: z.string(),
+  version: z.string(),
   usage_link: z.string().url(),
   origin_website: z.string().url(),
   AI_release_date: z.date().optional(),
-  version: z.number().nonnegative().step(0.1),
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
 });
 
@@ -75,7 +75,8 @@ export function AiForm() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder='Enter AI Name' {...field} />
+                {/* TODO: ON change auto complete slug input  */}
+                <Input placeholder='Enter AI Name' required {...field} />
               </FormControl>
               <FormDescription>This is AI public display name.</FormDescription>
               <FormMessage />
@@ -89,7 +90,7 @@ export function AiForm() {
             <FormItem>
               <FormLabel>Slug</FormLabel>
               <FormControl>
-                <Input placeholder='Enter Slug' {...field} />
+                <Input placeholder='Enter Slug' required {...field} />
               </FormControl>
               <FormDescription>
                 Slug must be unique. it is used for direct url to AI
@@ -98,6 +99,64 @@ export function AiForm() {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name='usage_link'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Usage Link</FormLabel>
+              <FormControl>
+                <Input placeholder='https://example.com/app#' {...field} />
+              </FormControl>
+              <FormDescription>This links directly to use AI.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='origin_website'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Origin Website</FormLabel>
+              <FormControl>
+                <Input placeholder='https://example.com' {...field} />
+              </FormControl>
+              <FormDescription>
+                This links to the original AI Website
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='version'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Version</FormLabel>
+              <FormControl>
+                <Input placeholder='1.0.0' {...field} />
+              </FormControl>
+              <FormDescription>AI Version</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* <FormField
+          control={form.control}
+          name='AI_release_date'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>AI Release Date</FormLabel>
+              <FormControl>
+                <DatePicker />
+              </FormControl>
+              <FormDescription>AI Release Date</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
         <FormField
           control={form.control}
           name='complexity_level'
@@ -127,17 +186,18 @@ export function AiForm() {
           name='body'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>Body</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Tell us a little bit about yourself'
+                  placeholder='Paste the content of AI Landing Description (Supports markdown)'
                   className='resize-none'
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
+                You can use{" "}
+                <a href='https://stackedit.io/app#'>StackEdit website</a> to see
+                your markdown result in realtime.
               </FormDescription>
               <FormMessage />
             </FormItem>
