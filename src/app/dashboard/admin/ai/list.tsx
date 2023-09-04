@@ -1,23 +1,26 @@
 import { Metadata } from "next";
 import { columns } from "./columns";
-import { DataTable } from "../../../../components/ui/data-table";
-import { AIs } from "./data/mock";
+
+import { AiSchema } from "./data/schema";
+import { z } from "zod";
+import { PrismaClient } from "@prisma/client";
+import { DataTable } from "@/components/ui/data-table";
 
 export const metadata: Metadata = {
-  title: "Tasks",
-  description: "A task and issue tracker build using Tanstack Table.",
+  title: "AI List",
+  description: "A List of All the AIs",
 };
 
-// async function getTasks() {
-//   const data = await fs.readFile(path.join(process.cwd(), "Mocks"));
+const prisma = new PrismaClient();
 
-//   const tasks = JSON.parse(data.toString());
+async function getAIs() {
+  const AIs = await prisma.aI.findMany();
 
-//   return z.array(taskSchema).parse(tasks);
-// }
+  return z.array(AiSchema).parse(AIs);
+}
 
 const AiList = async () => {
-  //   const tasks = await getTasks();
+  const AIs = await getAIs();
 
   return (
     <div className='hidden h-full flex-1 flex-col space-y-8 p-8 md:flex'>

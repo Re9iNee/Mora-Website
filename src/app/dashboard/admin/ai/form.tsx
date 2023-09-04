@@ -30,14 +30,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ComplexityLevel } from "@prisma/client";
-import { AI, aiSchema } from "./data/schema";
+import { AI, AiSchema } from "./data/schema";
 
 // This can come from your database or API.
 const defaultValues: Partial<AI> = {};
 
 export function AiForm() {
   const form = useForm<AI>({
-    resolver: zodResolver(aiSchema),
+    resolver: zodResolver(AiSchema),
     defaultValues,
     mode: "onChange",
   });

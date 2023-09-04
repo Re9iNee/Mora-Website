@@ -99,7 +99,7 @@ model AI {
   tags              Tag[]
   origin_AI_website String?
   AI_usuage_link    String?
-  version           Float?
+  version           String?
   slug              String          @unique
   AI_release_date   DateTime?
   date_created      DateTime        @default(now())
