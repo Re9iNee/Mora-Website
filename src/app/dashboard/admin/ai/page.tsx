@@ -1,7 +1,7 @@
 import AiList from "./list";
 
-const AI = () => {
+const AIPage = () => {
   return <AiList />;
 };
 
-export default AI;
+export default AIPage;

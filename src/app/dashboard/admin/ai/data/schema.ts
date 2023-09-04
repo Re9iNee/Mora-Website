@@ -12,4 +12,5 @@ export const aiSchema = z.object({
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
 });
 
+// TODO use the type in prisma client
 export type AI = z.infer<typeof aiSchema>;
