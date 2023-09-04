@@ -1,7 +1,7 @@
-import AiList from "./list";
+import { AiForm } from "./form";
 
 const AIPage = () => {
-  return <AiList />;
+  return <AiForm />;
 };
 
 export default AIPage;

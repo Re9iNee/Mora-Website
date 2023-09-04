@@ -1,11 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
-import * as z from "zod";
-
-import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
 
 import {
   Form,
@@ -25,10 +21,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { toast } from "@/components/ui/use-toast";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel } from "@prisma/client";
 import { AI, AiSchema } from "./data/schema";
 
@@ -42,7 +38,14 @@ export function AiForm() {
     mode: "onChange",
   });
 
-  function onSubmit(data: AI) {
+  async function onSubmit(data: AI) {
+    const response = await fetch("/api/ai", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    console.log(await response.json());
+
     toast({
       title: "You submitted the following values:",
       description: (
