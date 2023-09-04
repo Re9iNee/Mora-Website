@@ -1,8 +1,7 @@
-import React from "react";
-import { AiForm } from "./form";
+import AiList from "./list";
 
 const AI = () => {
-  return <AiForm />;
+  return <AiList />;
 };
 
 export default AI;
