@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { columns } from "./columns";
 import { DataTable } from "../../../../components/ui/data-table";
-import { payments } from "./data/payment";
+import { AIs } from "./data/mock";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -24,7 +24,7 @@ const AiList = async () => {
       <div className='flex items-center justify-between space-y-2'>
         <p className='text-muted-foreground'>Here&apos;s a list of AIs</p>
       </div>
-      <DataTable data={payments} columns={columns} />
+      <DataTable data={AIs} columns={columns} />
     </div>
   );
 };

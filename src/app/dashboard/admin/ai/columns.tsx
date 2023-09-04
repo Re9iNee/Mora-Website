@@ -1,19 +1,27 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Payment } from "./data/payment";
+import { AI } from "./data/schema";
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<AI>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "title",
+    header: "Title",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "complexity_level",
+    header: "Complexity Level",
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: "date_created",
+    header: "Date Created",
+  },
+  {
+    accessorKey: "tags",
+    header: "Tags",
+  },
+  {
+    accessorKey: "date_updated",
+    header: "Date Updated",
   },
 ];

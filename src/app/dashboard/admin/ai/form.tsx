@@ -30,31 +30,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ComplexityLevel } from "@prisma/client";
-
-const profileFormSchema = z.object({
-  slug: z.string(),
-  body: z.string(),
-  title: z.string(),
-  version: z.string(),
-  usage_link: z.string().url(),
-  origin_website: z.string().url(),
-  AI_release_date: z.date().optional(),
-  complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
-});
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
+import { AI, aiSchema } from "./data/schema";
 
 // This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {};
+const defaultValues: Partial<AI> = {};
 
 export function AiForm() {
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+  const form = useForm<AI>({
+    resolver: zodResolver(aiSchema),
     defaultValues,
     mode: "onChange",
   });
 
-  function onSubmit(data: ProfileFormValues) {
+  function onSubmit(data: AI) {
     toast({
       title: "You submitted the following values:",
       description: (
