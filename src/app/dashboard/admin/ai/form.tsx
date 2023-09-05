@@ -127,6 +127,7 @@ export function AiForm() {
             <FormItem>
               <FormLabel>Version</FormLabel>
               <FormControl>
+                {/* FIXME: How to tell the input that this is a valid type? */}
                 <Input placeholder='1.0.0' {...field} />
               </FormControl>
               <FormDescription>AI Version</FormDescription>
