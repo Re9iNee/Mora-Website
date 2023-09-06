@@ -27,15 +27,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel } from "@prisma/client";
 import { AI, AiSchema } from "./data/schema";
+import { z } from "zod";
 
 // This can come from your database or API.
-const defaultValues: Partial<AI> = {};
+const defaultValues: Partial<AI> = {
+  version: "",
+};
 
 export function AiForm() {
   const form = useForm<AI>({
-    resolver: zodResolver(AiSchema),
     defaultValues,
     mode: "onChange",
+    resolver: zodResolver(AiSchema),
   });
 
   async function onSubmit(data: AI) {
@@ -127,7 +130,6 @@ export function AiForm() {
             <FormItem>
               <FormLabel>Version</FormLabel>
               <FormControl>
-                {/* FIXME: How to tell the input that this is a valid type? */}
                 <Input placeholder='1.0.0' {...field} />
               </FormControl>
               <FormDescription>AI Version</FormDescription>
