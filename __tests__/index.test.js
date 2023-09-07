@@ -11,5 +11,6 @@ describe("Home", () => {
     });
 
     expect(heading).toBeInTheDocument();
+    expect(2).toBe(2);
   });
 });
