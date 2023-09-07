@@ -5,6 +5,7 @@ import { z } from "zod";
 import { AI, PrismaClient } from "@prisma/client";
 import { DataTable } from "@/components/ui/data-table";
 import { AiSchema } from "./data/schema";
+import AiList from "./list";
 
 export const metadata: Metadata = {
   title: "AI List",
@@ -19,7 +20,7 @@ async function getAIs() {
   return z.array(AiSchema).parse(AIs);
 }
 
-const AiList = async () => {
+const AiPage = async () => {
   const AIs = await getAIs();
 
   return (
@@ -30,9 +31,9 @@ const AiList = async () => {
           <p className='text-muted-foreground'>Here&apos;s a list of AIs</p>
         </div>
       </div>
-      <DataTable data={AIs} columns={columns} />
+      <AiList AIs={AIs} />
     </div>
   );
 };
 
-export default AiList;
+export default AiPage;
