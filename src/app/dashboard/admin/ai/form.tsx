@@ -34,7 +34,7 @@ const defaultValues: Partial<AI> = {
   version: "",
 };
 
-export function AiForm() {
+function AiForm() {
   const form = useForm<AI>({
     defaultValues,
     mode: "onChange",
@@ -61,7 +61,11 @@ export function AiForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+      <form
+        name='AI'
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-8'
+      >
         <FormField
           control={form.control}
           name='title'
@@ -203,3 +207,5 @@ export function AiForm() {
     </Form>
   );
 }
+
+export default AiForm;

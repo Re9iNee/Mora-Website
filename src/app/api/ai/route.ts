@@ -22,5 +22,6 @@ export async function POST(req: Request) {
     });
   } catch (err) {
     console.error("Couldn't create a new AI, ", err);
+    return NextResponse.json(err);
   }
 }
