@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import { columns } from "./columns";
 
-import { z } from "zod";
+import { Button } from "@/components/ui/button";
 import { AI, PrismaClient } from "@prisma/client";
-import { DataTable } from "@/components/ui/data-table";
+import { z } from "zod";
 import { AiSchema } from "./data/schema";
 import AiList from "./list";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "AI List",
@@ -29,6 +29,9 @@ const AiPage = async () => {
         <div>
           <h2 className='text-2xl font-bold tracking-tight'>AI List</h2>
           <p className='text-muted-foreground'>Here&apos;s a list of AIs</p>
+          <Button asChild data-cy='create'>
+            <Link href='ai/new'>Create</Link>
+          </Button>
         </div>
       </div>
       <AiList AIs={AIs} />

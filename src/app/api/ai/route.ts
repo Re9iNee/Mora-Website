@@ -15,13 +15,14 @@ export async function POST(req: Request) {
 
     const createdAi = await prisma.aI.create({ data: newAi });
 
-    return NextResponse.json({
-      status: 201,
-      msg: "Created",
-      data: createdAi,
-    });
+    return NextResponse.json(
+      {
+        data: createdAi,
+      },
+      { status: 201 }
+    );
   } catch (err) {
     console.error("Couldn't create a new AI, ", err);
-    return NextResponse.json(err);
+    return NextResponse.json(err, { status: 400 });
   }
 }

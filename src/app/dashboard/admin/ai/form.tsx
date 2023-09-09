@@ -28,6 +28,7 @@ import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel } from "@prisma/client";
 import { AI, AiSchema } from "./data/schema";
 import { z } from "zod";
+import Link from "next/link";
 
 // This can come from your database or API.
 const defaultValues: Partial<AI> = {
@@ -47,14 +48,18 @@ function AiForm() {
       body: JSON.stringify(data),
     });
 
-    console.log(await response.json());
+    const result = await response.json();
+    console.log(result);
 
     toast({
       title: "You submitted the following values:",
       description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-        </pre>
+        <div>
+          <Link href={`./edit/${result.slug}`}>Edit Page</Link>
+          <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+            <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        </div>
       ),
     });
   }
@@ -62,9 +67,10 @@ function AiForm() {
   return (
     <Form {...form}>
       <form
-        name='AI'
-        onSubmit={form.handleSubmit(onSubmit)}
+        name='ai-form'
+        data-cy='ai-form'
         className='space-y-8'
+        onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
           control={form.control}
@@ -74,7 +80,12 @@ function AiForm() {
               <FormLabel>Title</FormLabel>
               <FormControl>
                 {/* TODO: ON change auto complete slug input  */}
-                <Input placeholder='Enter AI Name' required {...field} />
+                <Input
+                  required
+                  data-cy='title'
+                  placeholder='Enter AI Name'
+                  {...field}
+                />
               </FormControl>
               <FormDescription>This is AI public display name.</FormDescription>
               <FormMessage />
@@ -88,7 +99,12 @@ function AiForm() {
             <FormItem>
               <FormLabel>Slug</FormLabel>
               <FormControl>
-                <Input placeholder='Enter Slug' required {...field} />
+                <Input
+                  data-cy='slug'
+                  placeholder='Enter Slug'
+                  required
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Slug must be unique. it is used for direct url to AI
@@ -104,7 +120,11 @@ function AiForm() {
             <FormItem>
               <FormLabel>Usage Link</FormLabel>
               <FormControl>
-                <Input placeholder='https://example.com/app#' {...field} />
+                <Input
+                  data-cy='usage_link'
+                  placeholder='https://example.com/app#'
+                  {...field}
+                />
               </FormControl>
               <FormDescription>This links directly to use AI.</FormDescription>
               <FormMessage />
@@ -118,7 +138,11 @@ function AiForm() {
             <FormItem>
               <FormLabel>Origin Website</FormLabel>
               <FormControl>
-                <Input placeholder='https://example.com' {...field} />
+                <Input
+                  data-cy='origin_website'
+                  placeholder='https://example.com'
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 This links to the original AI Website
@@ -134,7 +158,7 @@ function AiForm() {
             <FormItem>
               <FormLabel>Version</FormLabel>
               <FormControl>
-                <Input placeholder='1.0.0' {...field} />
+                <Input data-cy='version' placeholder='1.0.0' {...field} />
               </FormControl>
               <FormDescription>AI Version</FormDescription>
               <FormMessage />
@@ -161,15 +185,15 @@ function AiForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Complexity Level</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select defaultValue={field.value} onValueChange={field.onChange}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger data-cy='complexity_level'>
                     <SelectValue placeholder='Select a Complexity Level' />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {Object.keys(ComplexityLevel).map((lvl) => (
-                    <SelectItem key={lvl} value={lvl}>
+                    <SelectItem key={lvl} value={lvl} data-cy={`level_${lvl}`}>
                       {lvl}
                     </SelectItem>
                   ))}
@@ -187,6 +211,7 @@ function AiForm() {
               <FormLabel>Body</FormLabel>
               <FormControl>
                 <Textarea
+                  data-cy='body'
                   placeholder='Paste the content of AI Landing Description (Supports markdown)'
                   className='resize-none'
                   {...field}
@@ -202,7 +227,9 @@ function AiForm() {
           )}
         />
 
-        <Button type='submit'>Create AI</Button>
+        <Button data-cy='submit-btn' type='submit'>
+          Create AI
+        </Button>
       </form>
     </Form>
   );
