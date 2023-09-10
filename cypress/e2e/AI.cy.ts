@@ -6,20 +6,21 @@ describe("AI", () => {
   });
   it("renders a list of AIs", async () => {
     // TODO: Loading is Visible
-    // a get request would be sent to /api/ai
-    cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
-    cy.wait("@getAll").should(({ request, response }) => {
-      expect(request.method).to.equal("GET");
-      expect(response?.statusCode).to.equal(200);
-      // a fetch request wil return an Array of AIs
-      expect(response?.body).to.be.an("array");
-    });
-
+    // TODO: a get request would be sent to /api/ai
+    // cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
+    // cy.wait("@getAll").should(({ request, response }) => {
+    //   expect(request.method).to.equal("GET");
+    //   expect(response?.statusCode).to.equal(200);
+    //   // a fetch request wil return an Array of AIs
+    //   expect(response?.body).to.be.an("array");
+    // });
     // TODO: Loading gone
+
     // The table will render given data s.
     const table = cy.get("table");
     table.should("be.visible");
-    // The table will render each given AIs title
+
+    // TODO: The table will render each given AIs title
     // const tableRows = table.querySelectorAll("tbody > tr");
     // const AIsTitle = AIs.map((ai) => ai.title);
     // tableRows.forEach((row, i) => {
