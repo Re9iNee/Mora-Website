@@ -6,14 +6,21 @@ describe("AI", () => {
   });
   it("renders a list of AIs", async () => {
     // TODO: Loading is Visible
-    // NOTE: Couldn't find a way to actually notice if we are making a request or not.
     // TODO: a get request would be sent to /api/ai
-    // TODO: a fetch request wil return an Array of AIs
+    // cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
+    // cy.wait("@getAll").should(({ request, response }) => {
+    //   expect(request.method).to.equal("GET");
+    //   expect(response?.statusCode).to.equal(200);
+    //   // a fetch request wil return an Array of AIs
+    //   expect(response?.body).to.be.an("array");
+    // });
     // TODO: Loading gone
+
     // The table will render given data s.
-    // const table = screen.getByRole("table");
-    // expect(table).toBeInTheDocument();
-    // The table will render each given AIs title
+    const table = cy.get("table");
+    table.should("be.visible");
+
+    // TODO: The table will render each given AIs title
     // const tableRows = table.querySelectorAll("tbody > tr");
     // const AIsTitle = AIs.map((ai) => ai.title);
     // tableRows.forEach((row, i) => {
