@@ -1,4 +1,4 @@
-import { AiForm } from "../form";
+import AiForm from "../form";
 
 const CreateAi = () => {
   return <AiForm />;
