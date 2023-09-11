@@ -5,10 +5,10 @@ export const AiSchema = z.object({
   slug: z.string(),
   body: z.string(),
   title: z.string(),
-  version: z.string().nullish(),
+  version: z.string().optional(),
   AI_release_date: z.date().nullish(),
-  usage_link: z.string().url().nullish(),
-  origin_website: z.string().url().nullish(),
+  usage_link: z.string().url().optional(),
+  origin_website: z.string().url().optional(),
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
 });
 
