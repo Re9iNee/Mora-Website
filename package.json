@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "test": "jest --watch",
+        "test": "npx cypress run",
         "postinstall": "prisma generate && npx prisma db seed"
     },
     "dependencies": {
