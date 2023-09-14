@@ -79,4 +79,16 @@ describe("AI", () => {
     submitBtn.should("not.be.disabled").should("not.have.class", "loading");
     // --- TODO -> form should reset itself
   });
+
+  it("updates an AI", () => {
+    // user finds the created AI in a list and click on editing that AI
+    // user navigate to dashboard/admin/ai/[slug]
+    // a get request will sent and its response should contain the AI Object
+    // a form would be visible and the given object data will fill the inputs and form fields
+    // there should be a update button visible
+    // update button would be disabled by default (because form fields have not changed)
+    // when form field values modifies, the update button will gets enabled
+    // by clicking on update button an update request should be sent to /api/ai containing new datas
+    // a success message toast should be displayed (if in a mood show what changed!!)
+  });
 });
