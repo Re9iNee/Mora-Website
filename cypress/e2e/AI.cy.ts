@@ -1,3 +1,7 @@
+// NOTE: On your refactoring, think about "is there another way to do this?"
+
+import { AiSchema } from "@/app/dashboard/admin/ai/data/schema";
+import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
 
 describe("AI", () => {
@@ -40,7 +44,7 @@ describe("AI", () => {
     // User fill all the information
     const title = faker.word.words(2);
     cy.get('[data-cy="title"]').type(title);
-    cy.get('[data-cy="slug"]').type(title.replace(" ", "-"));
+    cy.get('[data-cy="slug"]').type(title.toLowerCase().replace(" ", "-"));
     cy.get('[data-cy="version"]').type(
       faker.number.float({ min: 0, max: 1, precision: 0.01 }).toString()
     );
@@ -81,14 +85,67 @@ describe("AI", () => {
   });
 
   it("updates an AI", () => {
-    // user finds the created AI in a list and click on editing that AI
+    cy.intercept({ method: "UPDATE", url: "/api/ai" }).as("update");
+    cy.intercept(
+      { method: "GET", url: "/api/ai/*" },
+      { statusCode: 200, body: AiMockData }
+    ).as("getSingle");
+
+    // TODO: user finds the created AI in a list and click on editing that AI
+
     // user navigate to dashboard/admin/ai/[slug]
+    cy.visit("/dashboard/admin/ai/runaway");
+
     // a get request will sent and its response should contain the AI Object
+    cy.wait("@getSingle").should(({ request, response }) => {
+      expect(request.method).to.equal("GET");
+      expect(response?.statusCode).to.equal(200);
+
+      const body = response?.body;
+      expect(body).to.be.an("object");
+    });
+
     // a form would be visible and the given object data will fill the inputs and form fields
-    // there should be a update button visible
+    const form = cy.get('[data-cy="ai-form"]');
+    form.should("be.visible");
+    cy.get('[data-cy="title"]').should("have.value", "Runaway");
+    cy.get('[data-cy="slug"]').should("have.value", "runaway");
+    cy.get('[data-cy="version"]').should("have.value", "0.1");
+    cy.get('[data-cy="usage_link"]').should(
+      "have.a.value",
+      "https://example.com"
+    );
+    cy.get('[data-cy="complexity_level"').should("have.value", "NORMAL");
+    cy.get('[data-cy="origin_website"]').should(
+      "have.a.value",
+      "https://example.com"
+    );
+    cy.get('[data-cy="body"]').should(
+      "have.a.value",
+      "This AI is good and Normal"
+    );
+
+    // there should be an update button visible
+    const updateBtn = cy.get("[data-cy='submit-btn']");
+    updateBtn.should("be.visible");
+
     // update button would be disabled by default (because form fields have not changed)
+    updateBtn.should("be.disabled");
+
     // when form field values modifies, the update button will gets enabled
+    cy.get('[data-cy="origin_website"]').type(faker.internet.url());
+    updateBtn.should("not.be.disabled");
+
     // by clicking on update button an update request should be sent to /api/ai containing new datas
+    updateBtn.click();
+    cy.wait("@update").should(({ request, response }) => {
+      expect(request.method).to.equal("UPDATE");
+      expect(response?.statusCode).to.equal(200);
+    });
+
     // a success message toast should be displayed (if in a mood show what changed!!)
+    const toast = cy.get('[data-cy="toast"]');
+    // A toast message will appear
+    toast.should("be.visible");
   });
 });
