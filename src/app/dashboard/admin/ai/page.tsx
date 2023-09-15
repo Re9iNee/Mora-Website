@@ -16,9 +16,14 @@ export const metadata: Metadata = {
 const prisma = new PrismaClient();
 
 async function getAIs() {
-  const AIs: AI[] = await prisma.aI.findMany();
+  try {
+    const AIs: AI[] = await prisma.aI.findMany();
 
-  return z.array(AiSchema).parse(mapNullToUndefinedInArray(AIs));
+    return z.array(AiSchema).parse(mapNullToUndefinedInArray(AIs));
+  } catch (e) {
+    console.error("Something happened while fetching AI list, err: ", e);
+    return [];
+  }
 }
 
 const AiPage = async () => {
