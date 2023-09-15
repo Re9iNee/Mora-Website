@@ -5,10 +5,9 @@ import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
 
 describe("AI", () => {
-  beforeEach(() => {
-    cy.visit("/dashboard/admin/ai");
-  });
   it("renders a list of AIs", async () => {
+    cy.visit("/dashboard/admin/ai");
+
     // TODO: Loading is Visible
     // TODO: a get request would be sent to /api/ai
     // cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
@@ -30,11 +29,14 @@ describe("AI", () => {
     // tableRows.forEach((row, i) => {
     //   expect(row.textContent).toContain(AIsTitle[i]);
     // });
-  });
-  it("creates a new AI", () => {
+
     // clicks on new button, it should navigate to ../new
     cy.get('[data-cy="create"]').click();
     cy.url().should("include", "/new");
+  });
+
+  it("creates a new AI", () => {
+    cy.visit("/dashboard/admin/ai/new");
 
     // TODO Loading state visible
     // there should be a form visible
