@@ -1,11 +1,6 @@
-import { AI, PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
+import { AI } from "@prisma/client";
 import { NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
-
-export async function GET() {
-  return NextResponse.json({ status: 200, msg: "Message to show" });
-}
 
 export async function POST(req: Request) {
   try {

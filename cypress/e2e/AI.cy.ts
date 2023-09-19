@@ -87,6 +87,9 @@ describe("AI", () => {
   });
 
   it("updates an AI", () => {
+    // TODO: if ai not found, redirect to /404
+    // TODO: if ai found, render ai page
+
     cy.intercept({ method: "UPDATE", url: "/api/ai" }).as("update");
     cy.intercept(
       { method: "GET", url: "/api/ai/*" },
