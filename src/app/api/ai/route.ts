@@ -1,6 +1,28 @@
 import { prisma } from "@/lib/prisma";
 import { AI } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+  // read slug from request url
+
+  try {
+    const slug = req.nextUrl.searchParams.get("slug");
+
+    if (!slug)
+      return NextResponse.json({ error: "No slug provided" }, { status: 400 });
+
+    const ai = await prisma.aI.findUnique({
+      where: {
+        slug,
+      },
+    });
+
+    return NextResponse.json(ai);
+  } catch (e) {
+    console.error("Couldn't find AI, ", e);
+    return NextResponse.json(e, { status: 404 });
+  }
+}
 
 export async function POST(req: Request) {
   try {

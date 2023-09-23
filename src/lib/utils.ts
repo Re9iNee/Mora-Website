@@ -19,3 +19,9 @@ export function mapNullToUndefinedInArray(arr: Record<string, unknown>[]) {
     return obj;
   });
 }
+
+export function getAppUrl() {
+  if (process.env.NODE_ENV === "development") return "http://localhost:3000";
+
+  return process.env.VERCEL_URL;
+}

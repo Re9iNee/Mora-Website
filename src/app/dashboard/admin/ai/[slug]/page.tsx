@@ -1,26 +1,32 @@
-import { prisma } from "@/lib/prisma";
+import { getAppUrl } from "@/lib/utils";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { slug: string };
 };
 async function getAiBySlug(slug: string) {
-  const ai = await prisma.aI.findUnique({ where: { slug: "Dua-Lipa" } });
+  const url = `${getAppUrl()}/api/ai?slug=${slug}`;
+  const response = await fetch(url, {
+    method: "GET",
+    cache: "no-cache",
+  });
 
-  console.log("ai ->", ai);
-  return ai;
+  const result = await response.json();
+
+  return result;
 }
 
 const AiSlug = async ({ params }: Props) => {
   const { slug } = params;
+
   const ai = await getAiBySlug(slug);
-  // console.log(ai);
-  // get ai by slug
-  // if ai not found, redirect to /404
-  // if ai found, render ai page
+  if (!ai) notFound();
 
   return (
     <div>
-      AiSlug, request to visit: <pre>{params.slug}</pre>
+      AiSlug, request to visit:
+      <pre>{params.slug}</pre>
+      RESPONSE:
       <pre>{JSON.stringify(ai)}</pre>
     </div>
   );
