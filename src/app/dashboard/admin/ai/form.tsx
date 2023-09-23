@@ -35,34 +35,16 @@ const defaultValues: Partial<AI> = {
   version: "",
 };
 
-function AiForm() {
+type Props = {
+  initialValues?: Partial<AI>;
+  onSubmit: (data: AI) => void;
+};
+function AiForm({ initialValues, onSubmit }: Props) {
   const form = useForm<AI>({
-    defaultValues,
+    defaultValues: { ...defaultValues, ...initialValues },
     mode: "onChange",
     resolver: zodResolver(AiSchema),
   });
-
-  async function onSubmit(data: AI) {
-    const response = await fetch("/api/ai", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-    console.log(result);
-
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <div>
-          <Link href={`./edit/${result.slug}`}>Edit Page</Link>
-          <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-            <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        </div>
-      ),
-    });
-  }
 
   return (
     <Form {...form}>
@@ -228,7 +210,7 @@ function AiForm() {
         />
 
         <Button data-cy='submit-btn' type='submit'>
-          Create AI
+          {initialValues ? "Update AI" : "Create AI"}
         </Button>
       </form>
     </Form>
