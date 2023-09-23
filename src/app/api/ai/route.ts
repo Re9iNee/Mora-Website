@@ -17,6 +17,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    // TODO: What if we enter the wrong slug or url?
+
     return NextResponse.json(ai);
   } catch (e) {
     console.error("Couldn't find AI, ", e);
