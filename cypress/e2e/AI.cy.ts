@@ -5,18 +5,18 @@ import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
 
 describe("AI", () => {
-  it("renders a list of AIs", async () => {
+  it("renders a list of AIs", () => {
+    cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
     cy.visit("/dashboard/admin/ai");
 
     // TODO: Loading is Visible
-    // TODO: a get request would be sent to /api/ai
-    // cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
-    // cy.wait("@getAll").should(({ request, response }) => {
-    //   expect(request.method).to.equal("GET");
-    //   expect(response?.statusCode).to.equal(200);
-    //   // a fetch request wil return an Array of AIs
-    //   expect(response?.body).to.be.an("array");
-    // });
+    // a get request would be sent to /api/ai
+    cy.wait("@getAll").should(({ request, response }) => {
+      expect(request.method).to.equal("GET");
+      expect(response?.statusCode).to.equal(200);
+      // a fetch request wil return an Array of AIs
+      expect(response?.body).to.be.an("array");
+    });
     // TODO: Loading gone
 
     // The table will render given data s.
@@ -33,6 +33,8 @@ describe("AI", () => {
     // clicks on new button, it should navigate to ../new
     cy.get('[data-cy="create"]').click();
     cy.url().should("include", "/new");
+
+    cy.pause();
   });
 
   it("creates a new AI", () => {
