@@ -10,7 +10,6 @@ export async function PUT(
     const { slug } = params;
 
     const newAi: AI = await req.json();
-    console.log(newAi, typeof newAi);
 
     if (Object.keys(newAi).length === 0)
       return NextResponse.json(

@@ -30,8 +30,6 @@ export async function POST(req: Request) {
   try {
     const newAi: AI = await req.json();
 
-    console.log(newAi);
-
     const createdAi = await prisma.aI.create({ data: newAi });
 
     return NextResponse.json(
@@ -49,8 +47,6 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const newAi: AI = await req.json();
-
-    console.log(newAi);
 
     const updateAi = await prisma.aI.update({
       data: newAi,
