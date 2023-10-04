@@ -11,9 +11,20 @@ export async function createAi(data: AI) {
   return await response.json();
 }
 
+export async function getAllAIs(): Promise<AI[]> {
+  const url = `${getAppUrl()}/api/ai`;
+  const response = await fetch(url, {
+    method: "GET",
+    cache: "no-cache",
+  });
+
+  const result = await response.json();
+
+  return result;
+}
+
 export async function getAiBySlug(slug: string): Promise<AI> {
-  // TODO: can't we use this instead? /api/ai?slug=${slug}
-  const url = `${getAppUrl()}/api/ai?slug=${slug}`;
+  const url = `/api/ai/${slug}`;
   const response = await fetch(url, {
     method: "GET",
     cache: "no-cache",
