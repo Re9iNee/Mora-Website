@@ -25,3 +25,27 @@ export async function PUT(
     return NextResponse.json(e, { status: 404 });
   }
 }
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { slug: string } }
+) {
+  try {
+    // TODO: What if we enter the wrong slug or url?
+    const { slug } = params;
+
+    if (!slug)
+      return NextResponse.json(
+        { status: "error", message: "No slug provided" },
+        { status: 400 }
+      );
+
+    const ai = await prisma.aI.findUnique({
+      where: {
+        slug,
+      },
+    });
+
+    return NextResponse.json(ai);
+  } catch (e) {}
+}
