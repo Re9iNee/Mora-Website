@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../src/lib/prisma";
+
 import { hash } from "bcryptjs";
 
 import * as dotenv from "dotenv";
 dotenv.config(); // Load the environment variables
-
-const prisma = new PrismaClient();
 
 async function removeAllUsers() {
   const removedUsers = await prisma.user.deleteMany({
@@ -57,13 +56,22 @@ async function createAI() {
   console.log("Upserted a new AI", { newAI });
 }
 
-removeAllUsers()
-  .then(createAdmin)
-  .then(() => prisma.$disconnect())
-  .catch(async (e) => {
-    console.error("HAPPENED AN ERROR DURING DB SEED");
+async function getBySlug() {
+  const ai = await prisma.aI.findUnique({ where: { slug: "Dua-Lipa" } });
 
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+  return ai;
+}
+
+getBySlug().then(console.log).catch(console.error);
+// .finally(() => prisma.$disconnect());
+
+// removeAllUsers()
+//   .then(createAdmin)
+//   .then(() => prisma.$disconnect())
+//   .catch(async (e) => {
+//     console.error("HAPPENED AN ERROR DURING DB SEED");
+
+//     console.error(e);
+//     await prisma.$disconnect();
+//     process.exit(1);
+//   });

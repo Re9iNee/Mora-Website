@@ -5,36 +5,8 @@ import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
 
 describe("AI", () => {
-  beforeEach(() => {
-    cy.visit("/dashboard/admin/ai");
-  });
-  it("renders a list of AIs", async () => {
-    // TODO: Loading is Visible
-    // TODO: a get request would be sent to /api/ai
-    // cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
-    // cy.wait("@getAll").should(({ request, response }) => {
-    //   expect(request.method).to.equal("GET");
-    //   expect(response?.statusCode).to.equal(200);
-    //   // a fetch request wil return an Array of AIs
-    //   expect(response?.body).to.be.an("array");
-    // });
-    // TODO: Loading gone
-
-    // The table will render given data s.
-    const table = cy.get("table");
-    table.should("be.visible");
-
-    // TODO: The table will render each given AIs title
-    // const tableRows = table.querySelectorAll("tbody > tr");
-    // const AIsTitle = AIs.map((ai) => ai.title);
-    // tableRows.forEach((row, i) => {
-    //   expect(row.textContent).toContain(AIsTitle[i]);
-    // });
-  });
   it("creates a new AI", () => {
-    // clicks on new button, it should navigate to ../new
-    cy.get('[data-cy="create"]').click();
-    cy.url().should("include", "/new");
+    cy.visit("/dashboard/admin/ai/new");
 
     // TODO Loading state visible
     // there should be a form visible
@@ -52,7 +24,7 @@ describe("AI", () => {
     cy.get('[data-cy="complexity_level"').click();
     cy.get('[data-cy="level_ADVANCED"]').click();
     cy.get('[data-cy="origin_website"]').type(faker.internet.url());
-    cy.get('[data-cy="body"]').type(faker.lorem.paragraphs(3));
+    cy.get('[data-cy="body"]').type(faker.lorem.paragraphs(1));
 
     cy.intercept({ method: "POST", url: "/api/ai" }).as("create");
     // User submits, or clicks on submit button
@@ -84,7 +56,42 @@ describe("AI", () => {
     // --- TODO -> form should reset itself
   });
 
+  it("renders a list of AIs", () => {
+    cy.pause();
+
+    cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
+    cy.visit("/dashboard/admin/ai");
+
+    // TODO: Loading is Visible
+    // a get request would be sent to /api/ai
+    cy.wait("@getAll").should(({ request, response }) => {
+      expect(request.method).to.equal("GET");
+      expect(response?.statusCode).to.equal(200);
+      // a fetch request wil return an Array of AIs
+      expect(response?.body).to.be.an("array");
+    });
+    // TODO: Loading gone
+
+    // The table will render given data s.
+    const table = cy.get("table");
+    table.should("be.visible");
+
+    // TODO: The table will render each given AIs title
+    // const tableRows = table.querySelectorAll("tbody > tr");
+    // const AIsTitle = AIs.map((ai) => ai.title);
+    // tableRows.forEach((row, i) => {
+    //   expect(row.textContent).toContain(AIsTitle[i]);
+    // });
+
+    // clicks on new button, it should navigate to ../new
+    cy.get('[data-cy="create"]').click();
+    cy.url().should("include", "/new");
+  });
+
   it("updates an AI", () => {
+    // TODO: if ai not found, redirect to /404
+    // TODO: if ai found, render ai page
+
     cy.intercept({ method: "UPDATE", url: "/api/ai" }).as("update");
     cy.intercept(
       { method: "GET", url: "/api/ai/*" },
