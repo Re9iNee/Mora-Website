@@ -2,6 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { AI } from "./data/schema";
+import { Button } from "@/components/ui/button";
+import { Delete, DeleteIcon, Trash, Trash2 } from "lucide-react";
 
 export const columns: ColumnDef<AI>[] = [
   {
@@ -23,5 +25,13 @@ export const columns: ColumnDef<AI>[] = [
   {
     accessorKey: "date_updated",
     header: "Date Updated",
+  },
+  {
+    id: "delete",
+    cell: ({ row }) => (
+      <Button variant='outline' size='icon'>
+        <Trash className='h-4 w-4' />
+      </Button>
+    ),
   },
 ];
