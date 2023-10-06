@@ -49,3 +49,18 @@ export async function updateAiBySlug(slug: string, data: AI): Promise<AI> {
 
   return result;
 }
+
+export async function deleteAiById(id: string): Promise<AI> {
+  const url = `/api/ai`;
+
+  const response: Awaited<Response> = await fetch(url, {
+    method: "DELETE",
+    body: JSON.stringify({
+      id,
+    }),
+    cache: "no-cache",
+  });
+
+  const result = await response.json();
+  return result;
+}

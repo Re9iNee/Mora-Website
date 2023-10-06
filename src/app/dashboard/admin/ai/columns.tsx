@@ -1,9 +1,37 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { AI } from "./data/schema";
 import { Button } from "@/components/ui/button";
-import { Delete, DeleteIcon, Trash, Trash2 } from "lucide-react";
+import { ColumnDef, Row } from "@tanstack/react-table";
+import { Trash } from "lucide-react";
+import { AI } from "./data/schema";
+import { deleteAiById } from "@/services/ai.service";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+
+const deleteAi = (row: Row<AI>) => {
+  const id = row.original.id;
+  if (!id) return;
+
+  deleteAiById(id)
+    // TODO: Toasts should go to services
+    .then(() =>
+      toast({
+        title: "AI Removed",
+      })
+    )
+    .catch(() =>
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: (
+          <ToastAction altText='Try again' onClick={() => deleteAi}>
+            Try again
+          </ToastAction>
+        ),
+      })
+    );
+};
 
 export const columns: ColumnDef<AI>[] = [
   {
@@ -29,7 +57,13 @@ export const columns: ColumnDef<AI>[] = [
   {
     id: "delete",
     cell: ({ row }) => (
-      <Button variant='outline' size='icon'>
+      <Button
+        onClick={() => {
+          deleteAi(row);
+        }}
+        variant='outline'
+        size='icon'
+      >
         <Trash className='h-4 w-4' />
       </Button>
     ),

@@ -46,3 +46,20 @@ export async function PUT(req: Request) {
     return NextResponse.json(e, { status: 400 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const { id }: { id: string } = await req.json();
+
+    const removedAi = await prisma.aI.delete({
+      where: {
+        id,
+      },
+    });
+
+    return NextResponse.json({ removedAi }, { status: 200 });
+  } catch (e) {
+    console.error("Couldn't remove AI, ", e);
+    return NextResponse.json(e, { status: 400 });
+  }
+}

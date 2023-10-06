@@ -2,6 +2,7 @@ import { ComplexityLevel } from "@prisma/client";
 import { z } from "zod";
 
 export const AiSchema = z.object({
+  id: z.string().optional(),
   slug: z
     .string()
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
