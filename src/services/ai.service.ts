@@ -1,4 +1,5 @@
 import { AI } from "@/app/dashboard/admin/ai/data/schema";
+import { toast } from "@/components/ui/use-toast";
 import { getAppUrl } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
@@ -61,6 +62,18 @@ export async function deleteAiById(id: string): Promise<AI> {
     cache: "no-cache",
   });
 
+  if (response.status === 200)
+    toast({
+      title: "AI Removed",
+    });
+  else if (response.status === 400)
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description: "There was a problem with your request.",
+    });
+
   const result = await response.json();
+
   return result;
 }
