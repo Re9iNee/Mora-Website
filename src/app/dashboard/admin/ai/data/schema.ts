@@ -18,6 +18,8 @@ export const AiSchema = z.object({
   usage_link: z.string().url().optional(),
   origin_website: z.string().url().optional(),
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
+  date_created: z.date().default(() => new Date()),
+  date_updated: z.date().default(() => new Date()),
 });
 
 // DIFFERENCES {
