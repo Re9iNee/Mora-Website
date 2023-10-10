@@ -155,4 +155,26 @@ describe("AI", () => {
     // A toast message will appear
     toast.should("be.visible");
   });
+
+  it("delete an AI", () => {
+    cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
+    cy.intercept({ method: "DELETE", url: "/api/ai" }).as("delete");
+
+    cy.visit("/dashboard/admin/ai");
+
+    let AILength: number = 0;
+    cy.wait("@getAll").should(({ request, response }) => {
+      AILength = response?.body.length;
+    });
+
+    cy.wait("@delete").should(({ request, response }) => {
+      expect(request.method).to.equal("DELETE");
+      expect(response?.statusCode).to.equal(200);
+
+      cy.visit("/dashboard/admin/ai");
+      cy.wait("@getAll").should(({ request, response }) => {
+        expect(response?.body.length).to.equal(AILength - 1);
+      });
+    });
+  });
 });
