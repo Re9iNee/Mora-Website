@@ -17,9 +17,6 @@ const DashboardHeader = () => {
         {status === "authenticated" && (
           <Button onClick={() => signOut()}>Sign out</Button>
         )}
-        {status === "unauthenticated" && (
-          <Button onClick={() => signIn()}>Sign in</Button>
-        )}
       </section>
     </header>
   );

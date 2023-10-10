@@ -8,7 +8,7 @@ export const authOptions: AuthOptions = {
   debug: true,
   providers: [
     CredentialsProvider({
-      name: "Sign in",
+      name: "Credentials",
       type: "credentials",
       credentials: {
         email: {
