@@ -3,8 +3,9 @@ import { compare } from "bcryptjs";
 import NextAuth, { AuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   session: { strategy: "jwt" },
+  debug: true,
   providers: [
     CredentialsProvider({
       name: "Sign in",

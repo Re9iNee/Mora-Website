@@ -62,16 +62,16 @@ async function getBySlug() {
   return ai;
 }
 
-getBySlug().then(console.log).catch(console.error);
+// getBySlug().then(console.log).catch(console.error);
 // .finally(() => prisma.$disconnect());
 
-// removeAllUsers()
-//   .then(createAdmin)
-//   .then(() => prisma.$disconnect())
-//   .catch(async (e) => {
-//     console.error("HAPPENED AN ERROR DURING DB SEED");
+removeAllUsers()
+  .then(createAdmin)
+  .then(() => prisma.$disconnect())
+  .catch(async (e) => {
+    console.error("HAPPENED AN ERROR DURING DB SEED");
 
-//     console.error(e);
-//     await prisma.$disconnect();
-//     process.exit(1);
-//   });
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
