@@ -7,18 +7,22 @@ import { AiSchema } from "./data/schema";
 import AiList from "./list";
 import Link from "next/link";
 import { mapNullToUndefinedInArray } from "@/lib/utils";
+import { getAllAIs } from "@/services/ai.service";
 
 export const metadata: Metadata = {
   title: "AI List",
   description: "A List of All the AIs",
 };
 
-const prisma = new PrismaClient();
-
 async function getAIs() {
-  const AIs: AI[] = await prisma.aI.findMany();
+  try {
+    const AIs = await getAllAIs();
 
-  return z.array(AiSchema).parse(mapNullToUndefinedInArray(AIs));
+    return AIs;
+  } catch (e) {
+    console.error("Something happened while fetching AI list, err: ", e);
+    return [];
+  }
 }
 
 const AiPage = async () => {

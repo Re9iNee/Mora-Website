@@ -1,7 +1,17 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
+import { deleteAiById } from "@/services/ai.service";
+import { ColumnDef, Row } from "@tanstack/react-table";
+import { Trash } from "lucide-react";
 import { AI } from "./data/schema";
+
+const deleteAi = (row: Row<AI>) => {
+  const id = row.original.id;
+  if (!id) return;
+
+  deleteAiById(id);
+};
 
 export const columns: ColumnDef<AI>[] = [
   {
@@ -15,6 +25,11 @@ export const columns: ColumnDef<AI>[] = [
   {
     accessorKey: "date_created",
     header: "Date Created",
+    cell: ({ row }) => {
+      // show date in local format
+      const date = new Date(row.original.date_created);
+      return date.toLocaleDateString();
+    },
   },
   {
     accessorKey: "tags",
@@ -23,5 +38,24 @@ export const columns: ColumnDef<AI>[] = [
   {
     accessorKey: "date_updated",
     header: "Date Updated",
+    cell: ({ row }) => {
+      // show date in local format
+      const date = new Date(row.original.date_updated);
+      return date.toLocaleDateString();
+    },
+  },
+  {
+    id: "delete",
+    cell: ({ row }) => (
+      <Button
+        onClick={() => {
+          deleteAi(row);
+        }}
+        variant='outline'
+        size='icon'
+      >
+        <Trash className='h-4 w-4' />
+      </Button>
+    ),
   },
 ];
