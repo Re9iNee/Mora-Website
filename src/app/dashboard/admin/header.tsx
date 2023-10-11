@@ -8,7 +8,7 @@ const DashboardHeader = () => {
   const { status } = useSession();
   return (
     <header className='space-y-0.5'>
-      <h2 className='text-2xl font-bold tracking-tight'>Admin Dashboard</h2>
+      <h1 className='text-2xl font-bold tracking-tight'>Admin Dashboard</h1>
       <p className='text-muted-foreground'>
         Manage account settings and website preferences.
       </p>

@@ -5,6 +5,7 @@ import { deleteAiById } from "@/services/ai.service";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { Trash } from "lucide-react";
 import { AI } from "./data/schema";
+import Link from "next/link";
 
 const deleteAi = (row: Row<AI>) => {
   const id = row.original.id;
@@ -43,6 +44,16 @@ export const columns: ColumnDef<AI>[] = [
       const date = new Date(row.original.date_updated);
       return date.toLocaleDateString();
     },
+  },
+  {
+    id: "edit",
+    cell: ({ row }) => (
+      <Button variant='outline'>
+        <Link href={`./ai/${row.original.slug}/`} replace={false}>
+          Edit
+        </Link>
+      </Button>
+    ),
   },
   {
     id: "delete",
