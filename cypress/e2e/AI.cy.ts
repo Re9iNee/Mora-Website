@@ -5,6 +5,9 @@ import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
 
 describe("AI", () => {
+  beforeEach(() => {
+    cy.login(Cypress.env("email"), Cypress.env("password"));
+  });
   it("creates a new AI", () => {
     cy.pause();
 

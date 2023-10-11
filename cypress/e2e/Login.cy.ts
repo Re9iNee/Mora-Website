@@ -1,13 +1,13 @@
 describe("The Login Page", () => {
   it("sets auth cookie when logging in via form submission", function () {
-    const username = Cypress.env("username");
+    const email = Cypress.env("email");
     const password = Cypress.env("password");
-    console.log({ username, password });
+    console.log({ username: email, password });
 
     cy.visit("/dashboard/admin");
     cy.visit("/api/auth/signin");
 
-    cy.get("#input-email-for-credentials-provider").type(username);
+    cy.get("#input-email-for-credentials-provider").type(email);
     cy.get("#input-password-for-credentials-provider").type(
       `${password}{enter}`
     );
