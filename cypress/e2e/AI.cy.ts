@@ -5,7 +5,12 @@ import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
 
 describe("AI", () => {
+  beforeEach(() => {
+    cy.login(Cypress.env("email"), Cypress.env("password"));
+  });
   it("creates a new AI", () => {
+    cy.pause();
+
     cy.visit("/dashboard/admin/ai/new");
 
     // TODO Loading state visible
@@ -89,6 +94,7 @@ describe("AI", () => {
   });
 
   it("updates an AI", () => {
+    cy.pause();
     // TODO: if ai not found, redirect to /404
     // TODO: if ai found, render ai page
 
