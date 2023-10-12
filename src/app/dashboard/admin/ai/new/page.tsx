@@ -28,7 +28,7 @@ const CreateAi = () => {
           title: "You submitted the following values:",
           description: (
             <div>
-              <Link href={`./edit/${data.slug}`}>Edit Page</Link>
+              <Link href={`./ai/${data.slug}`}>Edit Page</Link>
               <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
                 <code className='text-white'>
                   {JSON.stringify(data, null, 2)}
