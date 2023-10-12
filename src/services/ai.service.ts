@@ -44,7 +44,16 @@ export async function updateAiBySlug(slug: string, data: AI): Promise<AI> {
     cache: "no-cache",
   });
 
-  if (response.status === 404) notFound();
+  if (response.status === 200)
+    toast({
+      title: "AI Updated",
+    });
+  else if (response.status === 400 || response.status === 404)
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description: "There was a problem with your request.",
+    });
 
   const result = await response.json();
 
