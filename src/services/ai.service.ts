@@ -1,7 +1,6 @@
 import { AI } from "@/app/dashboard/admin/ai/data/schema";
 import { toast } from "@/components/ui/use-toast";
 import { getAppUrl } from "@/lib/utils";
-import { notFound } from "next/navigation";
 
 export async function createAi(data: AI) {
   const response = await fetch("/api/ai", {
@@ -37,7 +36,7 @@ export async function getAiBySlug(slug: string): Promise<AI> {
 }
 
 export async function updateAiBySlug(slug: string, data: AI): Promise<AI> {
-  const url = `${getAppUrl()}/api/ai/${slug}`;
+  const url = `/api/ai/${slug}`;
   const response: Awaited<Response> = await fetch(url, {
     method: "PUT",
     body: JSON.stringify(data),
