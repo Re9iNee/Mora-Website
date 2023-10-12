@@ -24,11 +24,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel } from "@prisma/client";
 import { AI, AiSchema } from "./data/schema";
-import { z } from "zod";
-import Link from "next/link";
 
 // This can come from your database or API.
 const defaultValues: Partial<AI> = {

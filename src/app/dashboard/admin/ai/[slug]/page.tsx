@@ -32,18 +32,24 @@ const AiSlug = ({ params }: Props) => {
   }, [slug]);
 
   const onSubmit = async (data: AI) => {
-    await updateAiBySlug(slug, data);
-
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <div>
-          <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-            <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        </div>
-      ),
-    });
+    await updateAiBySlug(slug, data)
+      .then(() => {
+        toast({
+          title: "You submitted the following values:",
+          description: (
+            <div>
+              <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+                <code className='text-white'>
+                  {JSON.stringify(data, null, 2)}
+                </code>
+              </pre>
+            </div>
+          ),
+        });
+      })
+      .catch((e) => {
+        toast({ title: "Error", description: e.message });
+      });
   };
 
   return (
