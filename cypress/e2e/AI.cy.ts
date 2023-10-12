@@ -1,16 +1,13 @@
 // NOTE: On your refactoring, think about "is there another way to do this?"
 
-import { AiSchema } from "@/app/dashboard/admin/ai/data/schema";
-import AiMockData from "../fixtures/AI.json";
 import { faker } from "@faker-js/faker";
+import AiMockData from "../fixtures/AI.json";
 
 describe("AI", () => {
   beforeEach(() => {
     cy.login(Cypress.env("email"), Cypress.env("password"));
   });
   it("creates a new AI", () => {
-    cy.pause();
-
     cy.visit("/dashboard/admin/ai/new");
 
     // TODO Loading state visible
@@ -62,8 +59,6 @@ describe("AI", () => {
   });
 
   it("renders a list of AIs", () => {
-    cy.pause();
-
     cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
     cy.visit("/dashboard/admin/ai");
 
@@ -94,7 +89,6 @@ describe("AI", () => {
   });
 
   it("updates an AI", () => {
-    cy.pause();
     // TODO: if ai not found, redirect to /404
     // TODO: if ai found, render ai page
 
