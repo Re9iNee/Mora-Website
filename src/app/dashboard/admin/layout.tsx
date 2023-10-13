@@ -24,6 +24,10 @@ const sidebarNavItems = [
     href: "/dashboard/admin/ai/new",
   },
   {
+    title: "Tags",
+    href: "/dashboard/admin/tag",
+  },
+  {
     title: "User",
     href: "/dashboard/admin/user",
   },
