@@ -3,7 +3,7 @@ import { prisma } from "../src/lib/prisma";
 import { hash } from "bcryptjs";
 
 import * as dotenv from "dotenv";
-dotenv.config(); // Load the environment variables
+dotenv.config({ path: ".env.local" }); // Load the environment variables
 
 async function removeAllUsers() {
   const removedUsers = await prisma.user.deleteMany({
