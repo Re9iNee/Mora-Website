@@ -1,5 +1,6 @@
 "use server";
 
+import { Tag, TagSchema } from "@/app/dashboard/admin/tag/schema";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -9,9 +10,11 @@ export async function getAllTags() {
   return tags;
 }
 
-export async function createTag(formData: FormData) {
-  const newName = formData.get("name");
-  if (!newName) return "No name provided";
+export async function createTag(data: Tag) {
+  const newName = data.name.trim();
+  const result = TagSchema.safeParse(data);
+  if (result.success === false)
+    return result.error.issues.map((issue) => issue.message).join(", ");
 
   const existingTag = await prisma.tag.findUnique({
     where: { name: newName.toString() },
