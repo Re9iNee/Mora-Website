@@ -7,12 +7,21 @@ import { Trash } from "lucide-react";
 import { deleteTagById } from "@/services/tag.service";
 import Link from "next/link";
 import { Tag } from "./schema";
+import { toast } from "@/components/ui/use-toast";
 
 const deleteTag = (row: Row<Tag>) => {
   const id = row.original.id;
   if (!id) return;
 
-  deleteTagById(id);
+  deleteTagById(id)
+    .then(() => {
+      toast({
+        title: "Tag Deleted",
+      });
+    })
+    .catch(() => {
+      toast({ title: "Error deleting tag" });
+    });
 };
 
 export const columns: ColumnDef<Tag>[] = [
