@@ -10,19 +10,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createTag } from "@/services/tag.service";
+import { toast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Tag, TagSchema } from "./schema";
 
 type Props = {
   initialValues?: Tag;
+  actionFn: (data: Tag, id?: string) => Promise<Tag>;
 };
 
-function TagsForm({ initialValues }: Props) {
+function TagForm({ initialValues, actionFn }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const form = useForm<Tag>({
     defaultValues: { ...initialValues },
     mode: "onChange",
@@ -31,9 +34,25 @@ function TagsForm({ initialValues }: Props) {
 
   const submitHandler: SubmitHandler<Tag> = async (data) => {
     setIsLoading(true);
-    const result = await createTag(data);
+    try {
+      const result = await actionFn(data, initialValues?.id);
+      toast({
+        title: `Tag ${initialValues ? "updated" : "created"}`,
+        description: !initialValues && (
+          <div>
+            <Link href={`./tag/${data.name}`}>Edit Page</Link>
+            <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+              <code className='text-white'>
+                {JSON.stringify(result, null, 2)}
+              </code>
+            </pre>
+          </div>
+        ),
+      });
+    } catch (e) {
+      toast({ title: `Error ${initialValues ? "updating" : "creating"} tag` });
+    }
     setIsLoading(false);
-    // TODO Navigate back to the list page
   };
 
   return (
@@ -64,11 +83,11 @@ function TagsForm({ initialValues }: Props) {
         />
         <Button type='submit' aria-disabled={isLoading}>
           {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
-          Create Tag
+          {initialValues ? "Update Tag" : "Create Tag"}
         </Button>
       </form>
     </Form>
   );
 }
 
-export default TagsForm;
+export default TagForm;

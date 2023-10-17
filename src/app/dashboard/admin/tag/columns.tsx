@@ -33,7 +33,7 @@ export const columns: ColumnDef<Tag>[] = [
     id: "edit",
     cell: ({ row }) => (
       <Button variant='outline'>
-        <Link href={`./tag/${row.original.name}/`} replace={false}>
+        <Link href={`./tag/${row.original.id}/`} replace={false}>
           Edit
         </Link>
       </Button>
