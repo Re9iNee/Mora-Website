@@ -32,7 +32,7 @@ export const columns: ColumnDef<Tag>[] = [
   {
     id: "edit",
     cell: ({ row }) => (
-      <Button variant='outline'>
+      <Button variant='outline' data-cy='edit-btn'>
         <Link href={`./tag/${row.original.id}/`} replace={false}>
           Edit
         </Link>
@@ -45,6 +45,7 @@ export const columns: ColumnDef<Tag>[] = [
       <Button
         size='icon'
         variant='outline'
+        data-cy='delete-btn'
         onClick={() => {
           deleteTag(row);
         }}

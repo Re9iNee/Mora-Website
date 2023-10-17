@@ -17,13 +17,15 @@ import {
 } from "@/components/ui/table";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  name: string;
   data: TData[];
+  columns: ColumnDef<TData, TValue>[];
 }
 
 export function DataTable<TData, TValue>({
-  columns,
+  name,
   data,
+  columns,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -32,7 +34,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className='rounded-md border'>
+    <div className='rounded-md border' data-cy={name}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

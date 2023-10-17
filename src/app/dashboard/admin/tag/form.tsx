@@ -81,7 +81,12 @@ function TagForm({ initialValues, actionFn }: Props) {
             </FormItem>
           )}
         />
-        <Button type='submit' aria-disabled={isLoading}>
+        <Button
+          type='submit'
+          data-cy='submit-btn'
+          disabled={isLoading}
+          aria-disabled={isLoading}
+        >
           {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
           {initialValues ? "Update Tag" : "Create Tag"}
         </Button>
