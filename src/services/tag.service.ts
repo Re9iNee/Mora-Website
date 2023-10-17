@@ -31,3 +31,13 @@ export async function createTag(data: Tag) {
 
   return newTag;
 }
+
+export async function deleteTagById(id: string) {
+  const tag = await prisma.tag.delete({
+    where: { id: id },
+  });
+
+  revalidatePath("/dashboard/admin/tag");
+
+  return tag;
+}
