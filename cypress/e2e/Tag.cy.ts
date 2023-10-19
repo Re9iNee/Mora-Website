@@ -23,7 +23,9 @@ describe("Tag", () => {
 
     cy.get('[data-cy="tag-list"]').should("be.visible");
 
-    cy.get('[data-cy="edit-btn"]').first().click();
+    cy.get('[data-cy="action-menu"]').first().click();
+
+    cy.get('[data-cy="edit-link"]').click();
 
     cy.get('[data-cy="tag-form"]').should("be.visible");
 
@@ -46,6 +48,7 @@ describe("Tag", () => {
 
     cy.get('[data-cy="tag-list"]').should("be.visible");
 
+    cy.get('[data-cy="action-menu"]').first().click();
     cy.get('[data-cy="delete-btn"]').first().click();
 
     cy.get('[data-cy="toast"]').should("be.visible");
