@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { MoreHorizontal, Trash } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 
 import { deleteTagById } from "@/services/tag.service";
 import Link from "next/link";
@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Router from "next/router";
 
 const deleteTag = (row: Row<Tag>) => {
   const id = row.original.id;
@@ -65,20 +66,21 @@ export const columns: ColumnDef<Tag>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               data-cy='delete-btn'
-              className='text-red-600'
+              className='text-red-600 cursor-pointer'
               onClick={() => deleteTag(row)}
             >
               Delete
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
-                replace={false}
-                data-cy='edit-link'
-                href={`./tag/${row.original.id}/`}
-              >
+
+            <Link
+              replace={false}
+              data-cy='edit-link'
+              href={`./tag/${row.original.id}/`}
+            >
+              <DropdownMenuItem className='cursor-pointer'>
                 Edit
-              </Link>
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       );
