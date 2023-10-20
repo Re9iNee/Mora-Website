@@ -34,10 +34,10 @@ const AiPage = async () => {
         <div>
           <h2 className='text-2xl font-bold tracking-tight'>AI List</h2>
           <p className='text-muted-foreground'>Here&apos;s a list of AIs</p>
-          <Button asChild data-cy='create'>
-            <Link href='ai/new'>Create</Link>
-          </Button>
         </div>
+        <Button asChild data-cy='create'>
+          <Link href='ai/new'>Create</Link>
+        </Button>
       </div>
       <AiList AIs={AIs} />
     </div>

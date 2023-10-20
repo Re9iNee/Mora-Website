@@ -62,8 +62,20 @@ async function getBySlug() {
   return ai;
 }
 
-// getBySlug().then(console.log).catch(console.error);
-// .finally(() => prisma.$disconnect());
+async function createTags() {
+  // create tags
+  const tags = await prisma.tag.createMany({
+    data: [{ name: "RED" }, { name: "BLUE" }, { name: "GREEN" }],
+  });
+
+  return tags;
+}
+
+async function getTags() {
+  const tags = await prisma.tag.findMany();
+
+  return tags;
+}
 
 removeAllUsers()
   .then(createAdmin)

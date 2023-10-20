@@ -31,22 +31,6 @@ export async function POST(req: Request) {
   }
 }
 
-export async function PUT(req: Request) {
-  try {
-    const newAi: AI = await req.json();
-
-    const updateAi = await prisma.aI.update({
-      data: newAi,
-      where: { id: newAi.id },
-    });
-
-    return NextResponse.json({ updateAi, newAi }, { status: 200 });
-  } catch (e) {
-    console.error("Couldn't update AI, ", e);
-    return NextResponse.json(e, { status: 400 });
-  }
-}
-
 export async function DELETE(req: Request) {
   try {
     const { id }: { id: string } = await req.json();

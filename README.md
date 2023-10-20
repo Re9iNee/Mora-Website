@@ -67,6 +67,11 @@ The AI Wiki Website comes with the following features:
 
 The project is actively developed, and new features may be added in the future.
 
+
+## Work in Progress
+
+- [ ] Admin Dashboard
+
 ## Contributing
 
 We welcome contributions from the community! If you'd like to contribute to the AI Wiki Website, please follow our [contribution guidelines](CONTRIBUTING.md) for details on the process.
