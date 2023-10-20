@@ -24,11 +24,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel } from "@prisma/client";
 import { AI, AiSchema } from "./data/schema";
 import { z } from "zod";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 // This can come from your database or API.
 const defaultValues: Partial<AI> = {
@@ -36,10 +36,11 @@ const defaultValues: Partial<AI> = {
 };
 
 type Props = {
+  isLoading: boolean;
   initialValues?: Partial<AI>;
   onSubmit: (data: AI) => void;
 };
-function AiForm({ initialValues, onSubmit }: Props) {
+function AiForm({ initialValues, onSubmit, isLoading }: Props) {
   const form = useForm<AI>({
     defaultValues: { ...defaultValues, ...initialValues },
     mode: "onChange",
@@ -209,7 +210,8 @@ function AiForm({ initialValues, onSubmit }: Props) {
           )}
         />
 
-        <Button data-cy='submit-btn' type='submit'>
+        <Button disabled={isLoading} data-cy='submit-btn' type='submit'>
+          {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
           {initialValues ? "Update AI" : "Create AI"}
         </Button>
       </form>

@@ -2,7 +2,6 @@ import { ComplexityLevel } from "@prisma/client";
 import { z } from "zod";
 
 export const AiSchema = z.object({
-  id: z.string().optional(),
   slug: z
     .string()
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
@@ -18,8 +17,6 @@ export const AiSchema = z.object({
   usage_link: z.string().url().optional(),
   origin_website: z.string().url().optional(),
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
-  date_created: z.date().default(() => new Date()),
-  date_updated: z.date().default(() => new Date()),
 });
 
 // DIFFERENCES {
@@ -28,4 +25,8 @@ export const AiSchema = z.object({
 //     nullish?: string | null | undefined;
 // }
 
-export type AI = z.infer<typeof AiSchema>;
+export type AI = z.infer<typeof AiSchema> & {
+  id: string;
+  date_updated: string | Date;
+  date_created: string | Date;
+};

@@ -3,7 +3,7 @@ import { prisma } from "../src/lib/prisma";
 import { hash } from "bcryptjs";
 
 import * as dotenv from "dotenv";
-dotenv.config(); // Load the environment variables
+dotenv.config({ path: ".env.local" }); // Load the environment variables
 
 async function removeAllUsers() {
   const removedUsers = await prisma.user.deleteMany({
@@ -62,8 +62,20 @@ async function getBySlug() {
   return ai;
 }
 
-// getBySlug().then(console.log).catch(console.error);
-// .finally(() => prisma.$disconnect());
+async function createTags() {
+  // create tags
+  const tags = await prisma.tag.createMany({
+    data: [{ name: "RED" }, { name: "BLUE" }, { name: "GREEN" }],
+  });
+
+  return tags;
+}
+
+async function getTags() {
+  const tags = await prisma.tag.findMany();
+
+  return tags;
+}
 
 removeAllUsers()
   .then(createAdmin)

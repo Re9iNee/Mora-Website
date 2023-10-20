@@ -1,7 +1,6 @@
 import { AI } from "@/app/dashboard/admin/ai/data/schema";
 import { toast } from "@/components/ui/use-toast";
 import { getAppUrl } from "@/lib/utils";
-import { notFound } from "next/navigation";
 
 export async function createAi(data: AI) {
   const response = await fetch("/api/ai", {
@@ -37,14 +36,23 @@ export async function getAiBySlug(slug: string): Promise<AI> {
 }
 
 export async function updateAiBySlug(slug: string, data: AI): Promise<AI> {
-  const url = `${getAppUrl()}/api/ai/${slug}`;
+  const url = `/api/ai/${slug}`;
   const response: Awaited<Response> = await fetch(url, {
     method: "PUT",
     body: JSON.stringify(data),
     cache: "no-cache",
   });
 
-  if (response.status === 404) notFound();
+  if (response.status === 200)
+    toast({
+      title: "AI Updated",
+    });
+  else if (response.status === 400 || response.status === 404)
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description: "There was a problem with your request.",
+    });
 
   const result = await response.json();
 
