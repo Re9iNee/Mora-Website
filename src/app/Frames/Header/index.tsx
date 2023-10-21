@@ -18,6 +18,9 @@ const Header = () => {
         >
           MORA
         </h1>
+        <Link className='p-2 text-xs' href={"/dashboard/admin"}>
+          Admin Dashboard
+        </Link>
         <Link
           className='p-2 text-xs hidden 
                     sm:block

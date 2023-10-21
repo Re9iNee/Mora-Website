@@ -6,7 +6,9 @@ type Props = {
   AIs: AI[];
 };
 const AiList = ({ AIs }: Props) => {
-  return <DataTable name='ai-list' data={AIs} columns={columns} />;
+  return (
+    <DataTable name='ai-list' data={AIs} columns={columns} filterBy='title' />
+  );
 };
 
 export default AiList;

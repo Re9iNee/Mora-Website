@@ -41,7 +41,7 @@ export default async function SettingsLayout({
   children,
 }: SettingsLayoutProps) {
   return (
-    <div className='hidden space-y-6 p-10 pb-16 md:block h-screen'>
+    <div className='space-y-6 p-10 pb-16 md:block h-screen'>
       <DashboardHeader />
       <Separator className='my-6' />
       <div className='flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0'>
