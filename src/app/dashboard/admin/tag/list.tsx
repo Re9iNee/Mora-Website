@@ -7,7 +7,9 @@ type Props = {
   data: Tag[];
 };
 function TagList({ data }: Props) {
-  return <DataTable name='tag-list' data={data} columns={columns} />;
+  return (
+    <DataTable name='tag-list' data={data} columns={columns} filterBy='name' />
+  );
 }
 
 export default TagList;
