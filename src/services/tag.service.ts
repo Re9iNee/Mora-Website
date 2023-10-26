@@ -4,6 +4,15 @@ import { Tag, TagSchema } from "@/app/dashboard/admin/tag/schema";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+export async function getTagsByName({ name }: { name: string }) {
+  const tags = await prisma.tag.findMany({
+    where: { name: { contains: name } },
+    take: 10,
+  });
+
+  return tags;
+}
+
 export async function getAllTags() {
   const tags = await prisma.tag.findMany();
 

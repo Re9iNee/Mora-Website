@@ -36,47 +36,6 @@ async function createAdmin() {
   console.log("Upserted a new User", { newUser });
 }
 
-async function createAI() {
-  const newAI = await prisma.aI.upsert({
-    where: {
-      slug: "runaway",
-    },
-    create: {
-      slug: `runway-${Math.random() * 10}`,
-      title: "Runway",
-      body: "# Runway",
-    },
-    update: {
-      slug: `runway-${Math.random() * 10}`,
-      title: "Runway",
-      body: "# Runway",
-    },
-  });
-
-  console.log("Upserted a new AI", { newAI });
-}
-
-async function getBySlug() {
-  const ai = await prisma.aI.findUnique({ where: { slug: "Dua-Lipa" } });
-
-  return ai;
-}
-
-async function createTags() {
-  // create tags
-  const tags = await prisma.tag.createMany({
-    data: [{ name: "RED" }, { name: "BLUE" }, { name: "GREEN" }],
-  });
-
-  return tags;
-}
-
-async function getTags() {
-  const tags = await prisma.tag.findMany();
-
-  return tags;
-}
-
 removeAllUsers()
   .then(createAdmin)
   .then(() => prisma.$disconnect())
