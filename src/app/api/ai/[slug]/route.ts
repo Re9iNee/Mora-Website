@@ -1,5 +1,5 @@
+import { AI } from "@/app/dashboard/admin/ai/data/schema";
 import { prisma } from "@/lib/prisma";
-import { AI } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -10,6 +10,7 @@ export async function PUT(
     const { slug } = params;
 
     const newAi: AI = await req.json();
+    const tags = newAi.tags;
 
     if (Object.keys(newAi).length === 0)
       return NextResponse.json(
@@ -20,7 +21,7 @@ export async function PUT(
     const updatedAi = await prisma.aI.update({
       data: {
         ...newAi,
-        tags: { connect: [{ name: "before" }, { name: "dry" }] },
+        tags: { set: [...tags] },
       },
       where: { slug },
     });

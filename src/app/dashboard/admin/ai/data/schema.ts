@@ -12,11 +12,11 @@ export const AiSchema = z.object({
     .max(50)
     .toLowerCase(),
   body: z.string(),
-  title: z.string().min(3).max(50),
+  tags: z.array(TagSchema),
   version: z.string().optional(),
+  title: z.string().min(3).max(50),
   AI_release_date: z.date().nullish(),
   usage_link: z.string().url().optional(),
-  tags: z.array(z.string()),
   origin_website: z.string().url().optional(),
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
 });
