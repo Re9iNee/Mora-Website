@@ -33,6 +33,7 @@ const AiSlug = ({ params }: Props) => {
 
   const onSubmit = async (data: AI) => {
     setIsLoading(true);
+
     await updateAiBySlug(slug, data)
       .then(() => {
         toast({

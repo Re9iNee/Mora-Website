@@ -25,10 +25,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ComplexityLevel } from "@prisma/client";
-import { AI, AiSchema } from "./data/schema";
-import { z } from "zod";
-import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import TagSelect from "../tag/select";
+import { AI, AiSchema } from "./data/schema";
 
 // This can come from your database or API.
 const defaultValues: Partial<AI> = {
@@ -185,6 +184,11 @@ function AiForm({ initialValues, onSubmit, isLoading }: Props) {
               <FormMessage />
             </FormItem>
           )}
+        />
+        <FormField
+          name='tags'
+          control={form.control}
+          render={({ field }) => <TagSelect field={field} />}
         />
         <FormField
           control={form.control}
