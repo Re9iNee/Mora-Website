@@ -17,7 +17,13 @@ export async function PUT(
         { status: 400 }
       );
 
-    const updatedAi = await prisma.aI.update({ data: newAi, where: { slug } });
+    const updatedAi = await prisma.aI.update({
+      data: {
+        ...newAi,
+        tags: { connect: [{ name: "before" }, { name: "dry" }] },
+      },
+      where: { slug },
+    });
 
     return NextResponse.json(updatedAi);
   } catch (e) {
