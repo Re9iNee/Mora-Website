@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     // return all AIs if slug not provided
-    const AIs = await prisma.aI.findMany();
+    const AIs = await prisma.aI.findMany({ include: { tags: true } });
     return NextResponse.json(AIs);
   } catch (e) {
     console.error("Couldn't find AI, ", e);

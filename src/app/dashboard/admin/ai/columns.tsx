@@ -6,6 +6,7 @@ import { ColumnDef, Row } from "@tanstack/react-table";
 import { Trash } from "lucide-react";
 import { AI } from "./data/schema";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 const deleteAi = (row: Row<AI>) => {
   const id = row.original.id;
@@ -35,6 +36,15 @@ export const columns: ColumnDef<AI>[] = [
   {
     accessorKey: "tags",
     header: "Tags",
+    cell: ({ row }) => (
+      <div className='flex flex-wrap gap-1'>
+        {row.original.tags.map((tag) => (
+          <Badge variant={"outline"} key={tag.name}>
+            {tag.name}
+          </Badge>
+        ))}
+      </div>
+    ),
   },
   {
     accessorKey: "date_updated",
