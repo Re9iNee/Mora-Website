@@ -44,6 +44,10 @@ export async function GET(
       where: {
         slug,
       },
+      include: {
+        tags: true,
+        video: true,
+      },
     });
 
     return NextResponse.json(ai);
