@@ -122,7 +122,7 @@ model Video {
   name        String
   url         String
   description String
-  AI          AI[]
+  ais         AI[]
 
   @@map("videos")
 }
