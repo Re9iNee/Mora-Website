@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Tag, TagSchema } from "./schema";
+import { ErrorToast, SuccessToast } from "../components/toast";
 
 type Props = {
   initialValues?: Tag;
@@ -34,24 +35,14 @@ function TagForm({ initialValues, actionFn }: Props) {
 
   const submitHandler: SubmitHandler<Tag> = async (data) => {
     setIsLoading(true);
+
     try {
       const result = await actionFn(data, initialValues?.id);
-      toast({
-        title: `Tag ${initialValues ? "updated" : "created"}`,
-        description: !initialValues && (
-          <div>
-            <Link href={`./tag/${data.name}`}>Edit Page</Link>
-            <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-              <code className='text-white'>
-                {JSON.stringify(result, null, 2)}
-              </code>
-            </pre>
-          </div>
-        ),
-      });
+      SuccessToast({ moduleName: "Tag", result, isUpdating: !!initialValues });
     } catch (e) {
-      toast({ title: `Error ${initialValues ? "updating" : "creating"} tag` });
+      ErrorToast({ moduleName: "tag", isUpdating: !!initialValues });
     }
+
     setIsLoading(false);
   };
 
