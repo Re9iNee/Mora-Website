@@ -16,7 +16,8 @@ export async function getTagsByName({ name }: { name: string }) {
 export async function getAllTags() {
   const tags = await prisma.tag.findMany();
 
-  return tags;
+  // show the most recent tags first
+  return tags.reverse();
 }
 
 export async function createTag(data: Tag) {
