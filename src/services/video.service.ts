@@ -23,6 +23,7 @@ export async function createVideo(data: Video) {
     );
 
   const newVideo = await prisma.video.create({
+    include: { ais: true },
     data: {
       ...result.data,
       ais: { connect: [{ slug: "amongst-gleefully" }] },
