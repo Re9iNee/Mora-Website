@@ -64,6 +64,7 @@ export async function updateVideoById(data: Video, id?: string) {
   const ais = data.ais;
 
   const updatedTag = await prisma.video.update({
+    include: { ais: true },
     where: { id },
     data: {
       ...result.data,
