@@ -1,5 +1,8 @@
+"use server";
+
 import { AI } from "@/app/dashboard/admin/ai/data/schema";
 import { toast } from "@/components/ui/use-toast";
+import { prisma } from "@/lib/prisma";
 import { getAppUrl } from "@/lib/utils";
 
 export async function createAi(data: AI) {
@@ -9,6 +12,15 @@ export async function createAi(data: AI) {
   });
 
   return await response.json();
+}
+
+export async function getAIsByTitle({ name }: { name: string }) {
+  const ais = await prisma.aI.findMany({
+    where: { title: { contains: name } },
+    take: 10,
+  });
+
+  return ais;
 }
 
 export async function getAllAIs(): Promise<AI[]> {

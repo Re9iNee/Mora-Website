@@ -47,6 +47,7 @@ export async function deleteVideoById(id: string) {
 export async function getVideoById(id: string) {
   const video = await prisma.video.findUnique({
     where: { id },
+    include: { ais: true },
   });
 
   return video;

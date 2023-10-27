@@ -18,6 +18,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorToast, SuccessToast } from "../components/toast";
 import { Video, VideoSchema } from "./schema";
 import { Textarea } from "@/components/ui/textarea";
+import AiSelect from "../ai/select";
 
 type Props = {
   initialValues?: Video;
@@ -95,6 +96,11 @@ function VideoForm({ initialValues, actionFn }: Props) {
           )}
         />
         <FormField
+          name='ais'
+          control={form.control}
+          render={({ field }) => <AiSelect field={field} />}
+        />
+        <FormField
           control={form.control}
           name='description'
           render={({ field }) => (
@@ -112,6 +118,7 @@ function VideoForm({ initialValues, actionFn }: Props) {
             </FormItem>
           )}
         />
+
         <Button
           type='submit'
           data-cy='submit-btn'
