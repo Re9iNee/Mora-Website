@@ -13,6 +13,7 @@ describe("Video", () => {
       faker.word.noun({ length: { min: 3, max: 50 } })
     );
     cy.get('[data-cy="url"]').type(faker.internet.url());
+    cy.get("#ai-select").click().type("{downArrow}{enter}");
     cy.get('[data-cy="description"]').type(faker.lorem.sentence());
     cy.get('[data-cy="submit-btn"]').click().should("be.disabled");
 
@@ -30,6 +31,7 @@ describe("Video", () => {
     cy.get('[data-cy="edit-link"]').click();
 
     cy.get('[data-cy="video-form"]').should("be.visible");
+    cy.get("#ai-select").click().type("{backspace}");
 
     cy.get('[data-cy="name"]')
       .clear()

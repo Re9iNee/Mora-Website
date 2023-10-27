@@ -22,6 +22,7 @@ function AiSelect({ field, ...props }: Props) {
         cacheOptions
         loadOptions={promiseOptions}
         defaultOptions
+        id='ai-select'
         menuPlacement='auto'
         styles={{
           // TODO: Make it more like shadcn

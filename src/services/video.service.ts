@@ -35,7 +35,7 @@ export async function createVideo(data: Video) {
 }
 
 export async function deleteVideoById(id: string) {
-  const video = await prisma.tag.delete({
+  const video = await prisma.video.delete({
     where: { id: id },
   });
 
@@ -61,11 +61,13 @@ export async function updateVideoById(data: Video, id?: string) {
       result.error.issues.map((issue) => issue.message).join(", ")
     );
 
+  const ais = data.ais;
+
   const updatedTag = await prisma.video.update({
     where: { id },
     data: {
       ...result.data,
-      ais: { connect: [{ slug: "amongst-gleefully" }] },
+      ais: { set: [...ais] },
     },
   });
 
