@@ -28,6 +28,7 @@ import { ComplexityLevel } from "@prisma/client";
 import { Loader2 } from "lucide-react";
 import TagSelect from "../tag/select";
 import { AI, AiSchema } from "./data/schema";
+import { ComboboxForm } from "@/components/ui/combo-box-async";
 
 // This can come from your database or API.
 const defaultValues: Partial<AI> = {
@@ -70,6 +71,17 @@ function AiForm({ initialValues, onSubmit, isLoading }: Props) {
                 />
               </FormControl>
               <FormDescription>This is AI public display name.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='video'
+          render={({ field }) => (
+            <FormItem className='flex flex-col'>
+              <FormLabel>Video</FormLabel>
+              <ComboboxForm form={form} field={field} />
               <FormMessage />
             </FormItem>
           )}
@@ -213,7 +225,6 @@ function AiForm({ initialValues, onSubmit, isLoading }: Props) {
             </FormItem>
           )}
         />
-
         <Button disabled={isLoading} data-cy='submit-btn' type='submit'>
           {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
           {initialValues ? "Update AI" : "Create AI"}

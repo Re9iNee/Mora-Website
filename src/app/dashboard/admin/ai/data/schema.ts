@@ -12,6 +12,8 @@ export const AiSchema = z.object({
     .max(50)
     .toLowerCase(),
   body: z.string(),
+  // Holds id of the video entity
+  video: z.string(),
   tags: z.array(TagSchema),
   version: z.string().optional(),
   title: z.string().min(3).max(50),
