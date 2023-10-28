@@ -6,6 +6,14 @@ import { prisma } from "@/lib/prisma";
 
 import { revalidatePath } from "next/cache";
 
+export async function getVideosByName(name: string) {
+  const videos = await prisma.video.findMany({
+    select: { name: true, id: true },
+  });
+
+  return videos;
+}
+
 export async function getAllVideos() {
   const videos = await prisma.video.findMany({
     include: { ais: { select: { title: true, slug: true } } },
