@@ -6,6 +6,14 @@ import { prisma } from "@/lib/prisma";
 
 import { revalidatePath } from "next/cache";
 
+export async function getVideosByName(name: string) {
+  const videos = await prisma.video.findMany({
+    select: { name: true, id: true },
+  });
+
+  return videos;
+}
+
 export async function getAllVideos() {
   const videos = await prisma.video.findMany({
     include: { ais: { select: { title: true, slug: true } } },
@@ -22,11 +30,13 @@ export async function createVideo(data: Video) {
       result.error.issues.map((issue) => issue.message).join(", ")
     );
 
+  const ais = data.ais;
+
   const newVideo = await prisma.video.create({
     include: { ais: true },
     data: {
       ...result.data,
-      ais: { connect: [{ slug: "amongst-gleefully" }] },
+      ais: { connect: [...ais] },
     },
   });
 
