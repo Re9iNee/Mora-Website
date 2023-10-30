@@ -15,14 +15,10 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorToast, SuccessToast } from "../components/toast";
+import { FormProps } from "../types/admin.dashboard.types";
 import { Tag, TagSchema } from "./schema";
 
-type Props = {
-  initialValues?: Tag;
-  actionFn: (data: Tag, id?: string) => Promise<Tag>;
-};
-
-function TagForm({ initialValues, actionFn }: Props) {
+function TagForm({ initialValues, actionFn }: FormProps<Tag>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<Tag>({

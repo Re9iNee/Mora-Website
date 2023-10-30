@@ -4,28 +4,23 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ErrorToast, SuccessToast } from "../components/toast";
-import { Video, VideoSchema } from "./schema";
-import { Textarea } from "@/components/ui/textarea";
 import AiSelect from "../ai/select";
+import { ErrorToast, SuccessToast } from "../components/toast";
+import { FormProps } from "../types/admin.dashboard.types";
+import { Video, VideoSchema } from "./schema";
 
-type Props = {
-  initialValues?: Video;
-  actionFn: (data: Video, id?: string) => Promise<Video>;
-};
-
-function VideoForm({ initialValues, actionFn }: Props) {
+function VideoForm({ initialValues, actionFn }: FormProps<Video>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<Video>({
