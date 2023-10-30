@@ -237,7 +237,9 @@ function AiForm({ initialValues, actionFn }: Props) {
         />
 
         <Button disabled={isLoading} data-cy='submit-btn' type='submit'>
-          {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+          {isLoading && (
+            <Loader2 id='loading' className='mr-2 h-4 w-4 animate-spin' />
+          )}
           {initialValues ? "Update AI" : "Create AI"}
         </Button>
       </form>

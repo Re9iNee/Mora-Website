@@ -23,6 +23,7 @@ function VideoSelect({ field, ...props }: Props) {
         cacheOptions
         loadOptions={promiseOptions}
         defaultOptions
+        id='video-select'
         menuPlacement='auto'
         // set option labels color red
         styles={{
