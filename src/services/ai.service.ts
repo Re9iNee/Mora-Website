@@ -84,6 +84,8 @@ export async function updateAiBySlug({
       },
     });
 
+    revalidatePath("/dashboard/admin/ai");
+
     return updatedAi;
   } catch (e) {
     throw new Error(`Couldn't update ai ${e}`);
