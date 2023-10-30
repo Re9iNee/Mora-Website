@@ -55,8 +55,6 @@ function AiForm({ initialValues, actionFn }: FormProps<AIModel, AI>) {
     try {
       const result = await actionFn(data, initialValues?.id);
       SuccessToast({ moduleName: "AI", result, isUpdating: !!initialValues });
-
-      form.reset();
     } catch (e) {
       ErrorToast({ moduleName: "AI", isUpdating: !!initialValues });
     }
