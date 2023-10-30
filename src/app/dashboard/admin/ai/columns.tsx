@@ -1,12 +1,19 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { deleteAiById } from "@/services/ai.service";
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { Trash } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { AI } from "@prisma/client";
 import { AIWithTags } from "./types/ai.types";
 
 const deleteAi = (row: Row<AIWithTags>) => {
@@ -57,27 +64,51 @@ export const columns: ColumnDef<AIWithTags>[] = [
     },
   },
   {
-    id: "edit",
-    cell: ({ row }) => (
-      <Button variant='outline'>
-        <Link href={`./ai/${row.original.slug}/`} replace={false}>
-          Edit
-        </Link>
-      </Button>
-    ),
-  },
-  {
-    id: "delete",
-    cell: ({ row }) => (
-      <Button
-        onClick={() => {
-          deleteAi(row);
-        }}
-        variant='outline'
-        size='icon'
-      >
-        <Trash className='h-4 w-4' />
-      </Button>
-    ),
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      const ai = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant={"ghost"}
+              className='h-8 w-8 p-0'
+              data-cy='action-menu'
+            >
+              <span className='sr-only'>Open menu</span>
+              <MoreHorizontal className='h-4 w-4' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(ai.id)}
+            >
+              Copy AI Id
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              data-cy='delete-btn'
+              className='text-red-600 cursor-pointer'
+              onClick={() => deleteAi(row)}
+            >
+              Delete
+            </DropdownMenuItem>
+
+            <Link
+              replace={false}
+              data-cy='edit-link'
+              href={`./ai/${row.original.slug}/`}
+            >
+              <DropdownMenuItem className='cursor-pointer'>
+                Edit
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
