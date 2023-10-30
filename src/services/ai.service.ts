@@ -1,8 +1,9 @@
 "use server";
 
 import { AI, AiSchema } from "@/app/dashboard/admin/ai/data/schema";
+import { AIWithTags } from "@/app/dashboard/admin/ai/types/ai.types";
 import { prisma } from "@/lib/prisma";
-import { AI as PrismaAI } from "@prisma/client";
+import { AI as PrismaAI, Tag } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 type createParams = {
@@ -37,8 +38,8 @@ export async function getAIsByTitle({ name }: { name: string }) {
   return ais;
 }
 
-export async function getAllAIs(): Promise<PrismaAI[]> {
-  const AIs = await prisma.aI.findMany({
+export async function getAllAIs(): Promise<AIWithTags[]> {
+  const AIs: AIWithTags[] = await prisma.aI.findMany({
     include: { tags: true },
     orderBy: { date_created: "desc" },
   });

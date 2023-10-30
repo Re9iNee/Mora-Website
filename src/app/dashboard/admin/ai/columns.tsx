@@ -4,18 +4,19 @@ import { Button } from "@/components/ui/button";
 import { deleteAiById } from "@/services/ai.service";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { Trash } from "lucide-react";
-import { AI } from "./data/schema";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { AI } from "@prisma/client";
+import { AIWithTags } from "./types/ai.types";
 
-const deleteAi = (row: Row<AI>) => {
+const deleteAi = (row: Row<AIWithTags>) => {
   const id = row.original.id;
   if (!id) return;
 
   deleteAiById(id);
 };
 
-export const columns: ColumnDef<AI>[] = [
+export const columns: ColumnDef<AIWithTags>[] = [
   {
     accessorKey: "title",
     header: "Title",
