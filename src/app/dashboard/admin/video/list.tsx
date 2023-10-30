@@ -1,8 +1,8 @@
 import { Video } from "@prisma/client";
 
 import { DataTable } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
 import { columns } from "./columns";
-import { Column, ColumnDef } from "@tanstack/react-table";
 
 type Props = {
   data: Video[];
