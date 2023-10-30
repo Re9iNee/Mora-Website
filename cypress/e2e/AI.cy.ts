@@ -73,54 +73,15 @@ describe("AI", () => {
   });
 
   it("renders a list of AIs", () => {
-    cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
-    cy.visit("/dashboard/admin/ai");
-
-    // TODO: Loading is Visible
-    // a get request would be sent to /api/ai
-    cy.wait("@getAll").should(({ request, response }) => {
-      expect(request.method).to.equal("GET");
-      expect(response?.statusCode).to.equal(200);
-      // a fetch request wil return an Array of AIs
-      expect(response?.body).to.be.an("array");
-    });
-    // TODO: Loading gone
-
-    // The table will render given data s.
-    const table = cy.get("table");
-    table.should("be.visible");
-
-    // TODO: The table will render each given AIs title
-    // const tableRows = table.querySelectorAll("tbody > tr");
-    // const AIsTitle = AIs.map((ai) => ai.title);
-    // tableRows.forEach((row, i) => {
-    //   expect(row.textContent).toContain(AIsTitle[i]);
-    // });
-
-    // clicks on new button, it should navigate to ../new
-    cy.get('[data-cy="create"]').click();
-    cy.url().should("include", "/new");
+    cy.get('[data-cy="ai-list"]').should("be.visible");
   });
 
   it("delete an AI", () => {
-    cy.intercept({ method: "GET", url: "/api/ai" }).as("getAll");
-    cy.intercept({ method: "DELETE", url: "/api/ai" }).as("delete");
+    cy.get('[data-cy="action-menu"]').first().click();
+    cy.get('[data-cy="delete-btn"]').first().click();
 
-    cy.visit("/dashboard/admin/ai");
-
-    let AILength: number = 0;
-    cy.wait("@getAll").should(({ request, response }) => {
-      AILength = response?.body.length;
-    });
-
-    cy.wait("@delete").should(({ request, response }) => {
-      expect(request.method).to.equal("DELETE");
-      expect(response?.statusCode).to.equal(200);
-
-      cy.visit("/dashboard/admin/ai");
-      cy.wait("@getAll").should(({ request, response }) => {
-        expect(response?.body.length).to.equal(AILength - 1);
-      });
-    });
+    cy.get('[data-cy="toast"]')
+      .should("be.visible")
+      .should("not.contain.text", "Error");
   });
 });

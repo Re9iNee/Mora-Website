@@ -15,12 +15,22 @@ import { ColumnDef, Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { AIWithTags } from "./types/ai.types";
+import { ErrorToast, SuccessToast } from "../components/toast";
+import { toast } from "@/components/ui/use-toast";
 
 const deleteAi = (row: Row<AIWithTags>) => {
   const id = row.original.id;
   if (!id) return;
 
-  deleteAiById(id);
+  deleteAiById(id)
+    .then(() => {
+      toast({
+        title: "AI Deleted",
+      });
+    })
+    .catch(() => {
+      toast({ title: "Error deleting AI" });
+    });
 };
 
 export const columns: ColumnDef<AIWithTags>[] = [
