@@ -31,15 +31,17 @@ import { ErrorToast, SuccessToast } from "../components/toast";
 import TagSelect from "../tag/select";
 import VideoSelect from "../video/select";
 import { AI, AiSchema } from "./data/schema";
+import { AIModel } from "./types/ai.types";
 
 // This can come from your database or API.
-const defaultValues: Partial<PrismaAi> = {
+const defaultValues: Partial<AIModel> = {
+  tags: [],
   version: "",
 };
 
 type Props = {
-  initialValues?: PrismaAi;
-  actionFn: ({ data, slug }: { data: AI; slug?: string }) => Promise<PrismaAi>;
+  initialValues?: AIModel;
+  actionFn: ({ data, id }: { data: AI; id?: string }) => Promise<PrismaAi>;
 };
 function AiForm({ initialValues, actionFn }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -54,8 +56,10 @@ function AiForm({ initialValues, actionFn }: Props) {
     setIsLoading(true);
 
     try {
-      const result = await actionFn({ data, slug: initialValues?.slug });
+      const result = await actionFn({ data, id: initialValues?.id });
       SuccessToast({ moduleName: "AI", result, isUpdating: !!initialValues });
+
+      form.reset();
     } catch (e) {
       ErrorToast({ moduleName: "AI", isUpdating: !!initialValues });
     }
@@ -236,7 +240,11 @@ function AiForm({ initialValues, actionFn }: Props) {
           )}
         />
 
-        <Button disabled={isLoading} data-cy='submit-btn' type='submit'>
+        <Button
+          type='submit'
+          data-cy='submit-btn'
+          disabled={!form.formState.isDirty || isLoading}
+        >
           {isLoading && (
             <Loader2 id='loading' className='mr-2 h-4 w-4 animate-spin' />
           )}

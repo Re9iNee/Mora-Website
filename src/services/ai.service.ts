@@ -1,7 +1,7 @@
 "use server";
 
 import { AI, AiSchema } from "@/app/dashboard/admin/ai/data/schema";
-import { AIWithTags } from "@/app/dashboard/admin/ai/types/ai.types";
+import { AIModel, AIWithTags } from "@/app/dashboard/admin/ai/types/ai.types";
 import { prisma } from "@/lib/prisma";
 import { AI as PrismaAI, Tag } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -47,10 +47,10 @@ export async function getAllAIs(): Promise<AIWithTags[]> {
   return AIs;
 }
 
-export async function getAiBySlug(slug: string) {
+export async function getAiById(id: string): Promise<AIModel | void> {
   const ai = await prisma.aI.findUnique({
     where: {
-      slug,
+      id,
     },
     include: {
       tags: true,
@@ -58,25 +58,27 @@ export async function getAiBySlug(slug: string) {
     },
   });
 
+  if (!ai) return;
+
   return ai;
 }
 
 type updateParams = {
   data: AI;
-  slug?: string;
+  id?: string;
 };
-export async function updateAiBySlug({
+export async function updateAiById({
+  id,
   data,
-  slug,
 }: updateParams): Promise<PrismaAI> {
   try {
-    if (!slug) throw new Error("AI Slug is required");
+    if (!id) throw new Error("AI ID is required");
     const result = await AiSchema.parseAsync(data);
 
     const { tags, video } = result;
 
     const updatedAi = await prisma.aI.update({
-      where: { slug },
+      where: { id },
       data: {
         ...result,
         tags: { set: [...tags] },

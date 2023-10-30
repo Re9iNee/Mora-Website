@@ -1,16 +1,19 @@
-// NOTE: On your refactoring, think about "is there another way to do this?"
-
-import { faker } from "@faker-js/faker";
-import AiMockData from "../fixtures/AI.json";
+import { fa, faker } from "@faker-js/faker";
 
 describe("AI", () => {
   beforeEach(() => {
     cy.login(Cypress.env("email"), Cypress.env("password"));
+
+    cy.visit("/dashboard/admin/ai");
   });
   it("creates a new AI", () => {
-    cy.visit("/dashboard/admin/ai/new");
+    cy.get("#create").click();
+    cy.url().should("include", "/new");
 
     cy.get('[data-cy="ai-form"]').should("be.visible");
+
+    const submitBtn = cy.get('[data-cy="submit-btn"]');
+    submitBtn.should("be.disabled");
 
     // User fill all the information
     const title = faker.word.words(2);
@@ -30,8 +33,6 @@ describe("AI", () => {
       .type("{downArrow}{enter}")
       .type("{downArrow}{enter}");
 
-    const submitBtn = cy.get('[data-cy="submit-btn"]');
-
     submitBtn.click().should("be.disabled");
     cy.get("#loading").should("be.visible");
 
@@ -41,6 +42,34 @@ describe("AI", () => {
 
     submitBtn.should("not.be.disabled");
     cy.get("#loading").should("not.exist");
+  });
+
+  it("edits created AI", () => {
+    cy.get('[data-cy="ai-list"]').should("be.visible");
+    cy.get('[data-cy="action-menu"]').first().click();
+
+    cy.get('[data-cy="edit-link"]').click();
+
+    cy.get('[data-cy="ai-form"]').should("be.visible");
+
+    cy.get("[data-cy='submit-btn']").should("exist").and("be.disabled");
+
+    const newTitle = faker.word.noun({ length: { min: 3, max: 50 } });
+
+    cy.get('[data-cy="title"]').clear().type(newTitle);
+    cy.get('[data-cy="slug"]').clear().type(newTitle.toLocaleLowerCase());
+    cy.get('[data-cy="version"]')
+      .clear()
+      .type(faker.number.float({ min: 0, max: 1, precision: 0.01 }).toString());
+    cy.get('[data-cy="origin_website"]').clear().type(faker.internet.url());
+
+    // when form field values modifies, the update button will gets enabled
+
+    cy.get("[data-cy='submit-btn']").should("not.be.disabled").click();
+
+    cy.get('[data-cy="toast"]')
+      .should("be.visible")
+      .should("contain.text", "updated", { matchCase: false });
   });
 
   it("renders a list of AIs", () => {
@@ -71,74 +100,6 @@ describe("AI", () => {
     // clicks on new button, it should navigate to ../new
     cy.get('[data-cy="create"]').click();
     cy.url().should("include", "/new");
-  });
-
-  it("updates an AI", () => {
-    // TODO: if ai not found, redirect to /404
-    // TODO: if ai found, render ai page
-
-    cy.intercept({ method: "UPDATE", url: "/api/ai" }).as("update");
-    cy.intercept(
-      { method: "GET", url: "/api/ai/*" },
-      { statusCode: 200, body: AiMockData }
-    ).as("getSingle");
-
-    // TODO: user finds the created AI in a list and click on editing that AI
-
-    // user navigate to dashboard/admin/ai/[slug]
-    cy.visit("/dashboard/admin/ai/runaway");
-
-    // a get request will sent and its response should contain the AI Object
-    cy.wait("@getSingle").should(({ request, response }) => {
-      expect(request.method).to.equal("GET");
-      expect(response?.statusCode).to.equal(200);
-
-      const body = response?.body;
-      expect(body).to.be.an("object");
-    });
-
-    // a form would be visible and the given object data will fill the inputs and form fields
-    const form = cy.get('[data-cy="ai-form"]');
-    form.should("be.visible");
-    cy.get('[data-cy="title"]').should("have.value", "Runaway");
-    cy.get('[data-cy="slug"]').should("have.value", "runaway");
-    cy.get('[data-cy="version"]').should("have.value", "0.1");
-    cy.get('[data-cy="usage_link"]').should(
-      "have.a.value",
-      "https://example.com"
-    );
-    cy.get('[data-cy="complexity_level"').should("have.value", "NORMAL");
-    cy.get('[data-cy="origin_website"]').should(
-      "have.a.value",
-      "https://example.com"
-    );
-    cy.get('[data-cy="body"]').should(
-      "have.a.value",
-      "This AI is good and Normal"
-    );
-
-    // there should be an update button visible
-    const updateBtn = cy.get("[data-cy='submit-btn']");
-    updateBtn.should("be.visible");
-
-    // update button would be disabled by default (because form fields have not changed)
-    updateBtn.should("be.disabled");
-
-    // when form field values modifies, the update button will gets enabled
-    cy.get('[data-cy="origin_website"]').type(faker.internet.url());
-    updateBtn.should("not.be.disabled");
-
-    // by clicking on update button an update request should be sent to /api/ai containing new datas
-    updateBtn.click();
-    cy.wait("@update").should(({ request, response }) => {
-      expect(request.method).to.equal("UPDATE");
-      expect(response?.statusCode).to.equal(200);
-    });
-
-    // a success message toast should be displayed (if in a mood show what changed!!)
-    const toast = cy.get('[data-cy="toast"]');
-    // A toast message will appear
-    toast.should("be.visible");
   });
 
   it("delete an AI", () => {

@@ -100,7 +100,7 @@ export const columns: ColumnDef<AIWithTags>[] = [
             <Link
               replace={false}
               data-cy='edit-link'
-              href={`./ai/${row.original.slug}/`}
+              href={`./ai/${row.original.id}/`}
             >
               <DropdownMenuItem className='cursor-pointer'>
                 Edit
