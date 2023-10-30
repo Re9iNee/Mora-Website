@@ -1,17 +1,31 @@
 "use server";
 
-import { AI } from "@/app/dashboard/admin/ai/data/schema";
-import { toast } from "@/components/ui/use-toast";
+import { AI, AiSchema } from "@/app/dashboard/admin/ai/data/schema";
 import { prisma } from "@/lib/prisma";
-import { getAppUrl } from "@/lib/utils";
+import { AI as PrismaAI } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
-export async function createAi(data: AI) {
-  const response = await fetch("/api/ai", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+type createParams = {
+  data: AI;
+};
+export async function createAi({ data }: createParams): Promise<PrismaAI> {
+  try {
+    const result = await AiSchema.parseAsync(data);
 
-  return await response.json();
+    const { tags, video } = result;
+
+    const createdAi = await prisma.aI.create({
+      data: {
+        ...result,
+        tags: { connect: [...tags] },
+        video: { connect: { id: video?.id } },
+      },
+    });
+
+    return createdAi;
+  } catch (e) {
+    throw new Error(`Couldn't create ai ${e}`);
+  }
 }
 
 export async function getAIsByTitle({ name }: { name: string }) {
@@ -23,77 +37,66 @@ export async function getAIsByTitle({ name }: { name: string }) {
   return ais;
 }
 
-export async function getAllAIs(): Promise<AI[]> {
-  const url = `${getAppUrl()}/api/ai`;
-  const response = await fetch(url, {
-    method: "GET",
-    cache: "no-cache",
+export async function getAllAIs(): Promise<PrismaAI[]> {
+  const AIs = await prisma.aI.findMany({
+    include: { tags: true },
+    orderBy: { date_created: "desc" },
   });
 
-  const result = await response.json();
-
-  return result;
+  return AIs;
 }
 
-export async function getAiBySlug(slug: string): Promise<AI> {
-  const url = `/api/ai/${slug}`;
-  const response = await fetch(url, {
-    method: "GET",
-    cache: "no-cache",
+export async function getAiBySlug(slug: string) {
+  const ai = await prisma.aI.findUnique({
+    where: {
+      slug,
+    },
+    include: {
+      tags: true,
+      video: true,
+    },
   });
 
-  const result = await response.json();
-
-  return result;
+  return ai;
 }
 
-export async function updateAiBySlug(slug: string, data: AI): Promise<AI> {
-  const url = `/api/ai/${slug}`;
-  const response: Awaited<Response> = await fetch(url, {
-    method: "PUT",
-    body: JSON.stringify(data),
-    cache: "no-cache",
-  });
+type updateParams = {
+  data: AI;
+  slug?: string;
+};
+export async function updateAiBySlug({
+  data,
+  slug,
+}: updateParams): Promise<PrismaAI> {
+  try {
+    if (!slug) throw new Error("AI Slug is required");
+    const result = await AiSchema.parseAsync(data);
 
-  if (response.status === 200)
-    toast({
-      title: "AI Updated",
+    const { tags, video } = result;
+
+    const updatedAi = await prisma.aI.update({
+      where: { slug },
+      data: {
+        ...result,
+        tags: { set: [...tags] },
+        video: { connect: { id: video?.id } },
+      },
     });
-  else if (response.status === 400 || response.status === 404)
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-    });
 
-  const result = await response.json();
-
-  return result;
+    return updatedAi;
+  } catch (e) {
+    throw new Error(`Couldn't update ai ${e}`);
+  }
 }
 
-export async function deleteAiById(id: string): Promise<AI> {
-  const url = `/api/ai`;
+export async function deleteAiById(id: string): Promise<PrismaAI> {
+  try {
+    const removedAi = await prisma.aI.delete({ where: { id } });
 
-  const response: Awaited<Response> = await fetch(url, {
-    method: "DELETE",
-    body: JSON.stringify({
-      id,
-    }),
-    cache: "no-cache",
-  });
+    revalidatePath("/dashboard/admin/ai");
 
-  if (response.status === 200)
-    toast({
-      title: "AI Removed",
-    });
-  else if (response.status === 400)
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-    });
-
-  const result = await response.json();
-
-  return result;
+    return removedAi;
+  } catch (e) {
+    throw new Error(`Couldn't delete ai ${e}`);
+  }
 }
