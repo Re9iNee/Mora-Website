@@ -3,7 +3,7 @@ import { toast } from "@/components/ui/use-toast";
 type SuccessProps = {
   moduleName: string;
   isUpdating: boolean;
-  result: Record<string, unknown>;
+  result: unknown;
 };
 
 function SuccessToast({ moduleName, result, isUpdating }: SuccessProps) {

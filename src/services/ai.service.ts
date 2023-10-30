@@ -6,29 +6,6 @@ import { prisma } from "@/lib/prisma";
 import { AI as PrismaAI, Tag } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-type createParams = {
-  data: AI;
-};
-export async function createAi({ data }: createParams): Promise<PrismaAI> {
-  try {
-    const result = await AiSchema.parseAsync(data);
-
-    const { tags, video } = result;
-
-    const createdAi = await prisma.aI.create({
-      data: {
-        ...result,
-        tags: { connect: [...tags] },
-        video: { connect: { id: video?.id } },
-      },
-    });
-
-    return createdAi;
-  } catch (e) {
-    throw new Error(`Couldn't create ai ${e}`);
-  }
-}
-
 export async function getAIsByTitle({ name }: { name: string }) {
   const ais = await prisma.aI.findMany({
     where: { title: { contains: name } },
@@ -63,14 +40,7 @@ export async function getAiById(id: string): Promise<AIModel | void> {
   return ai;
 }
 
-type updateParams = {
-  data: AI;
-  id?: string;
-};
-export async function updateAiById({
-  id,
-  data,
-}: updateParams): Promise<PrismaAI> {
+export async function updateAiById(data: AI, id?: string): Promise<PrismaAI> {
   try {
     if (!id) throw new Error("AI ID is required");
     const result = await AiSchema.parseAsync(data);
@@ -91,6 +61,25 @@ export async function updateAiById({
     return updatedAi;
   } catch (e) {
     throw new Error(`Couldn't update ai ${e}`);
+  }
+}
+export async function createAi(data: AI): Promise<PrismaAI> {
+  try {
+    const result = await AiSchema.parseAsync(data);
+
+    const { tags, video } = result;
+
+    const createdAi = await prisma.aI.create({
+      data: {
+        ...result,
+        tags: { connect: [...tags] },
+        video: { connect: { id: video?.id } },
+      },
+    });
+
+    return createdAi;
+  } catch (e) {
+    throw new Error(`Couldn't create ai ${e}`);
   }
 }
 

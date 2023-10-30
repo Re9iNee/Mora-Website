@@ -32,6 +32,7 @@ import TagSelect from "../tag/select";
 import VideoSelect from "../video/select";
 import { AI, AiSchema } from "./data/schema";
 import { AIModel } from "./types/ai.types";
+import { FormProps } from "../types/admin.dashboard.types";
 
 // This can come from your database or API.
 const defaultValues: Partial<AIModel> = {
@@ -39,11 +40,7 @@ const defaultValues: Partial<AIModel> = {
   version: "",
 };
 
-type Props = {
-  initialValues?: AIModel;
-  actionFn: ({ data, id }: { data: AI; id?: string }) => Promise<PrismaAi>;
-};
-function AiForm({ initialValues, actionFn }: Props) {
+function AiForm({ initialValues, actionFn }: FormProps<AIModel, AI>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<AI>({
@@ -56,7 +53,7 @@ function AiForm({ initialValues, actionFn }: Props) {
     setIsLoading(true);
 
     try {
-      const result = await actionFn({ data, id: initialValues?.id });
+      const result = await actionFn(data, initialValues?.id);
       SuccessToast({ moduleName: "AI", result, isUpdating: !!initialValues });
 
       form.reset();
