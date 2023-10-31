@@ -40,7 +40,7 @@ const defaultValues: Partial<AIModel> = {
   version: "",
 };
 
-function AiForm({ initialValues, actionFn }: FormProps<AIModel, AI>) {
+function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<AI>({
