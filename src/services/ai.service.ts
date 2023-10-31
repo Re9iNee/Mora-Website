@@ -3,13 +3,13 @@
 import { AI, AiSchema } from "@/app/dashboard/admin/ai/data/schema";
 import { AIModel, AIWithTags } from "@/app/dashboard/admin/ai/types/ai.types";
 import { prisma } from "@/lib/prisma";
-import { AI as PrismaAI, Tag } from "@prisma/client";
+import { AI as PrismaAI } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export async function getAIsByTitle({ name }: { name: string }) {
+export async function getAIsByTitle({ title }: { title: string }) {
   const ais = await prisma.aI.findMany({
-    where: { title: { contains: name } },
     take: 10,
+    where: { title: { contains: title } },
   });
 
   return ais;

@@ -12,7 +12,7 @@ interface Props {
 function AiSelect({ field, ...props }: Props) {
   const promiseOptions = (inputValue: string) =>
     new Promise<AI[]>((resolve) => {
-      resolve(getAIsByTitle({ name: inputValue }));
+      resolve(getAIsByTitle({ title: inputValue }));
     });
 
   return (

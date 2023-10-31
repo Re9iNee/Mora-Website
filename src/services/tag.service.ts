@@ -6,8 +6,9 @@ import { revalidatePath } from "next/cache";
 
 export async function getTagsByName({ name }: { name: string }) {
   const tags = await prisma.tag.findMany({
-    where: { name: { contains: name } },
     take: 10,
+    select: { name: true, id: true },
+    where: { name: { contains: name } },
   });
 
   return tags;
