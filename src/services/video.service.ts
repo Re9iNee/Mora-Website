@@ -8,7 +8,9 @@ import { revalidatePath } from "next/cache";
 
 export async function getVideosByName(name: string) {
   const videos = await prisma.video.findMany({
+    take: 10,
     select: { name: true, id: true },
+    where: { name: { contains: name } },
   });
 
   return videos;
