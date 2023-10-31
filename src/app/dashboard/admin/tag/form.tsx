@@ -10,21 +10,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Tag, TagSchema } from "./schema";
 import { ErrorToast, SuccessToast } from "../components/toast";
+import { FormProps } from "../types/admin.dashboard.types";
+import { Tag, TagSchema } from "./schema";
 
-type Props = {
-  initialValues?: Tag;
-  actionFn: (data: Tag, id?: string) => Promise<Tag>;
-};
-
-function TagForm({ initialValues, actionFn }: Props) {
+function TagForm({ initialValues, actionFn }: FormProps<Tag>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<Tag>({

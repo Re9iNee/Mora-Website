@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import {
   Form,
@@ -24,27 +24,43 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ComplexityLevel } from "@prisma/client";
+import { ComplexityLevel, AI as PrismaAi } from "@prisma/client";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { ErrorToast, SuccessToast } from "../components/toast";
 import TagSelect from "../tag/select";
+import VideoSelect from "../video/select";
 import { AI, AiSchema } from "./data/schema";
+import { AIModel } from "./types/ai.types";
+import { FormProps } from "../types/admin.dashboard.types";
 
 // This can come from your database or API.
-const defaultValues: Partial<AI> = {
+const defaultValues: Partial<AIModel> = {
+  tags: [],
   version: "",
 };
 
-type Props = {
-  isLoading: boolean;
-  initialValues?: Partial<AI>;
-  onSubmit: (data: AI) => void;
-};
-function AiForm({ initialValues, onSubmit, isLoading }: Props) {
+function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const form = useForm<AI>({
-    defaultValues: { ...defaultValues, ...initialValues },
+    defaultValues: { ...defaultValues, ...initialValues } as AI,
     mode: "onChange",
     resolver: zodResolver(AiSchema),
   });
+
+  const submitHandler: SubmitHandler<AI> = async (data) => {
+    setIsLoading(true);
+
+    try {
+      const result = await actionFn(data, initialValues?.id);
+      SuccessToast({ moduleName: "AI", result, isUpdating: !!initialValues });
+    } catch (e) {
+      ErrorToast({ moduleName: "AI", isUpdating: !!initialValues });
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <Form {...form}>
@@ -52,7 +68,7 @@ function AiForm({ initialValues, onSubmit, isLoading }: Props) {
         name='ai-form'
         data-cy='ai-form'
         className='space-y-8'
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(submitHandler)}
       >
         <FormField
           control={form.control}
@@ -73,6 +89,11 @@ function AiForm({ initialValues, onSubmit, isLoading }: Props) {
               <FormMessage />
             </FormItem>
           )}
+        />
+        <FormField
+          name='video'
+          control={form.control}
+          render={({ field }) => <VideoSelect field={field} />}
         />
         <FormField
           control={form.control}
@@ -214,8 +235,14 @@ function AiForm({ initialValues, onSubmit, isLoading }: Props) {
           )}
         />
 
-        <Button disabled={isLoading} data-cy='submit-btn' type='submit'>
-          {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+        <Button
+          type='submit'
+          data-cy='submit-btn'
+          disabled={!form.formState.isDirty || isLoading}
+        >
+          {isLoading && (
+            <Loader2 id='loading' className='mr-2 h-4 w-4 animate-spin' />
+          )}
           {initialValues ? "Update AI" : "Create AI"}
         </Button>
       </form>

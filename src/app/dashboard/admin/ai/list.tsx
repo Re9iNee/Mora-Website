@@ -1,9 +1,9 @@
 import { DataTable } from "@/components/ui/data-table";
-import { AI } from "./data/schema";
 import { columns } from "./columns";
+import { AIWithTags } from "./types/ai.types";
 
 type Props = {
-  AIs: AI[];
+  AIs: AIWithTags[];
 };
 const AiList = ({ AIs }: Props) => {
   return (

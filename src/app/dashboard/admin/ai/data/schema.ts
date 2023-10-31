@@ -1,6 +1,7 @@
 import { ComplexityLevel } from "@prisma/client";
 import { z } from "zod";
 import { Tag, TagSchema } from "../../tag/schema";
+import { VideoSchema } from "../../video/schema";
 
 export const AiSchema = z.object({
   slug: z
@@ -18,6 +19,7 @@ export const AiSchema = z.object({
   AI_release_date: z.date().nullish(),
   usage_link: z.string().url().optional(),
   origin_website: z.string().url().optional(),
+  video: z.object({ name: z.string(), id: z.string() }).optional(),
   complexity_level: z.nativeEnum(ComplexityLevel).default("NORMAL"),
 });
 

@@ -20,9 +20,11 @@ function TagSelect({ field, ...props }: Props) {
       <FormLabel>Tags</FormLabel>
       <AsyncSelect
         cacheOptions
-        loadOptions={promiseOptions}
         defaultOptions
+        isMulti={true}
+        id='tag-select'
         menuPlacement='auto'
+        loadOptions={promiseOptions}
         // set option labels color red
         styles={{
           // TODO: Make it more like shadcn
@@ -31,7 +33,6 @@ function TagSelect({ field, ...props }: Props) {
             color: state.isSelected ? "red" : "blue",
           }),
         }}
-        isMulti={true}
         getOptionValue={(tag) => tag.id}
         getOptionLabel={(tag) => tag.name}
         defaultValue={field.value}
