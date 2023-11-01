@@ -71,8 +71,9 @@ The project is actively developed, and new features may be added in the future.
 ## Work in Progress
 
 - [X] Admin Dashboard
-- [] Managing Tags.
-- [] Tags Select.
+- [X] Managing Tags.
+- [X] Tags Select.
+- [ ] Questions
 
 ## Contributing
 
