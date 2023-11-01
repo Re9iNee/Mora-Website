@@ -26,13 +26,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ComplexityLevel, AI as PrismaAi } from "@prisma/client";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ErrorToast, SuccessToast } from "../components/toast";
 import TagSelect from "../tag/select";
+import { FormProps } from "../types/admin.dashboard.types";
 import VideoSelect from "../video/select";
 import { AI, AiSchema } from "./data/schema";
 import { AIModel } from "./types/ai.types";
-import { FormProps } from "../types/admin.dashboard.types";
 
 // This can come from your database or API.
 const defaultValues: Partial<AIModel> = {
@@ -48,6 +48,19 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
     mode: "onChange",
     resolver: zodResolver(AiSchema),
   });
+
+  const watchedTitle = form.watch("title");
+  // Watch the title field
+
+  // Function to convert title to slug
+  const titleToSlug = useCallback((title: string) => {
+    return title.toLowerCase().replace(/\s+/g, "-");
+  }, []);
+
+  // Effect to update the slug field when the title changes
+  useEffect(() => {
+    form.setValue("slug", titleToSlug(watchedTitle ?? ""));
+  }, [watchedTitle, form, titleToSlug]);
 
   const submitHandler: SubmitHandler<AI> = async (data) => {
     setIsLoading(true);
@@ -91,11 +104,6 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
           )}
         />
         <FormField
-          name='video'
-          control={form.control}
-          render={({ field }) => <VideoSelect field={field} />}
-        />
-        <FormField
           control={form.control}
           name='slug'
           render={({ field }) => (
@@ -115,6 +123,11 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
               <FormMessage />
             </FormItem>
           )}
+        />
+        <FormField
+          name='video'
+          control={form.control}
+          render={({ field }) => <VideoSelect field={field} />}
         />
         <FormField
           control={form.control}

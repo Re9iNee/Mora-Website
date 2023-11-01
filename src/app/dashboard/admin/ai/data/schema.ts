@@ -1,7 +1,6 @@
 import { ComplexityLevel } from "@prisma/client";
 import { z } from "zod";
-import { Tag, TagSchema } from "../../tag/schema";
-import { VideoSchema } from "../../video/schema";
+import { TagSchema } from "../../tag/schema";
 
 export const AiSchema = z.object({
   slug: z
