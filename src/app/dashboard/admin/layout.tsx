@@ -27,6 +27,10 @@ const sidebarNavItems = [
     title: "Videos",
     href: "/dashboard/admin/video",
   },
+  {
+    title: "Question",
+    href: "/dashboard/admin/question",
+  },
 ];
 
 interface SettingsLayoutProps {
