@@ -24,15 +24,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Uploader } from "@/components/ui/uploader";
+import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel, AI as PrismaAi } from "@prisma/client";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 import { ErrorToast, SuccessToast } from "../components/toast";
 import TagSelect from "../tag/select";
+import { FormProps } from "../types/admin.dashboard.types";
 import VideoSelect from "../video/select";
 import { AI, AiSchema } from "./data/schema";
 import { AIModel } from "./types/ai.types";
-import { FormProps } from "../types/admin.dashboard.types";
+import { DatePicker } from "@/components/ui/date-picker";
 
 // This can come from your database or API.
 const defaultValues: Partial<AIModel> = {
@@ -49,6 +54,19 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
     resolver: zodResolver(AiSchema),
   });
 
+  const watchedTitle = form.watch("title");
+  // Watch the title field
+
+  // Function to convert title to slug
+  const titleToSlug = useCallback((title: string) => {
+    return title.toLowerCase().replace(/\s+/g, "-");
+  }, []);
+
+  // Effect to update the slug field when the title changes
+  useEffect(() => {
+    form.setValue("slug", titleToSlug(watchedTitle ?? ""));
+  }, [watchedTitle, form, titleToSlug]);
+
   const submitHandler: SubmitHandler<AI> = async (data) => {
     setIsLoading(true);
 
@@ -62,6 +80,23 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
     setIsLoading(false);
   };
 
+  const onUploadFinished = (url: string) => {
+    form.setValue("logo", url);
+
+    toast({
+      title: "File uploaded",
+      description: (
+        <Link
+          href={url}
+          target='_blank'
+          className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+        >
+          Link
+        </Link>
+      ),
+    });
+  };
+
   return (
     <Form {...form}>
       <form
@@ -70,6 +105,57 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
         className='space-y-8'
         onSubmit={form.handleSubmit(submitHandler)}
       >
+        {form.getValues("logo") && (
+          <div className='grid place-items-center'>
+            <Image
+              width={150}
+              height={150}
+              src={form.getValues("logo")!}
+              alt={form.getValues("logo_alt") ?? "AI Logo"}
+              className='rounded-full border-2 border-gray-200 dark:border-gray-800 aspect-square'
+            />
+          </div>
+        )}
+
+        <FormField
+          name='logo'
+          control={form.control}
+          render={() => {
+            return (
+              <FormItem>
+                <FormLabel>Logo</FormLabel>
+                <FormControl>
+                  <Uploader onUploadFinished={onUploadFinished} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+        <FormField
+          control={form.control}
+          name='logo_alt'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Logo Alt Text</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  data-cy='logo_alt'
+                  value={field.value ?? ""}
+                  placeholder='Enter AI Logo Alt Text'
+                />
+              </FormControl>
+              <FormDescription>
+                This is for screen readers and the fallback in case logo
+                doesn&apos;t load
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name='title'
@@ -89,11 +175,6 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
               <FormMessage />
             </FormItem>
           )}
-        />
-        <FormField
-          name='video'
-          control={form.control}
-          render={({ field }) => <VideoSelect field={field} />}
         />
         <FormField
           control={form.control}
@@ -117,6 +198,11 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
           )}
         />
         <FormField
+          name='video'
+          control={form.control}
+          render={({ field }) => <VideoSelect field={field} />}
+        />
+        <FormField
           control={form.control}
           name='usage_link'
           render={({ field }) => (
@@ -124,9 +210,10 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
               <FormLabel>Usage Link</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
+                  value={field.value ?? ""}
                   data-cy='usage_link'
                   placeholder='https://example.com/app#'
-                  {...field}
                 />
               </FormControl>
               <FormDescription>This links directly to use AI.</FormDescription>
@@ -142,9 +229,10 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
               <FormLabel>Origin Website</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
+                  value={field.value ?? ""}
                   data-cy='origin_website'
                   placeholder='https://example.com'
-                  {...field}
                 />
               </FormControl>
               <FormDescription>
@@ -161,27 +249,54 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
             <FormItem>
               <FormLabel>Version</FormLabel>
               <FormControl>
-                <Input data-cy='version' placeholder='1.0.0' {...field} />
+                <Input
+                  {...field}
+                  data-cy='version'
+                  placeholder='1.0.0'
+                  value={field.value ?? ""}
+                />
               </FormControl>
               <FormDescription>AI Version</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
-          name='AI_release_date'
+          name='google_query_text'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>AI Release Date</FormLabel>
+              <FormLabel>Google Query Text</FormLabel>
               <FormControl>
-                <DatePicker />
+                <Input
+                  {...field}
+                  data-cy='google_query_text'
+                  value={field.value ?? ""}
+                  placeholder='Enter google query text...'
+                />
               </FormControl>
-              <FormDescription>AI Release Date</FormDescription>
+              <FormDescription>
+                Text to Search on Google ** HELP!! I FORGOT WHAT THIS WAS FOR :D
+                **{" "}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
+        <FormField
+          control={form.control}
+          name='AI_release_date'
+          render={({ field }) => (
+            <FormItem className='flex flex-col'>
+              <FormLabel>AI Release Date</FormLabel>
+              <DatePicker
+                onChange={field.onChange}
+                value={field.value ?? undefined}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name='complexity_level'

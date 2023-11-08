@@ -76,6 +76,20 @@ describe("AI", () => {
     cy.get('[data-cy="ai-list"]').should("be.visible");
   });
 
+  it("can upload an ai logo", () => {
+    cy.get('[data-cy="action-menu"]').first().click();
+
+    cy.get('[data-cy="edit-link"]').click();
+    cy.get('[data-cy="uploader"]')
+      .should("be.visible")
+      .selectFile("cypress/fixtures/logo.png");
+
+    cy.get('[data-cy="toast"]', { timeout: 10000 })
+      .should("be.visible")
+      .should("contain.text", "uploaded", { matchCase: false })
+      .should("not.contain.text", "Error", { matchCase: false });
+  });
+
   it("delete an AI", () => {
     cy.get('[data-cy="action-menu"]').first().click();
     cy.get('[data-cy="delete-btn"]').first().click();
