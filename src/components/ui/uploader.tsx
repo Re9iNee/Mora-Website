@@ -21,5 +21,7 @@ export function Uploader({ onUploadFinished, ...props }: Props) {
       });
   };
 
-  return <Input {...props} type='file' onChange={changeHandler} />;
+  return (
+    <Input data-cy='uploader' {...props} type='file' onChange={changeHandler} />
+  );
 }
