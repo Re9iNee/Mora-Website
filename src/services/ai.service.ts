@@ -73,7 +73,7 @@ export async function createAi(data: AI): Promise<PrismaAI> {
       data: {
         ...result,
         tags: { connect: [...tags] },
-        video: { connect: { id: video?.id } },
+        video: video ? { connect: { id: video.id } } : {},
       },
     });
 
