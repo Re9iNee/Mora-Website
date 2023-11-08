@@ -37,6 +37,7 @@ import { FormProps } from "../types/admin.dashboard.types";
 import VideoSelect from "../video/select";
 import { AI, AiSchema } from "./data/schema";
 import { AIModel } from "./types/ai.types";
+import { DatePicker } from "@/components/ui/date-picker";
 
 // This can come from your database or API.
 const defaultValues: Partial<AIModel> = {
@@ -260,20 +261,42 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
-          name='AI_release_date'
+          name='google_query_text'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>AI Release Date</FormLabel>
+              <FormLabel>Google Query Text</FormLabel>
               <FormControl>
-                <DatePicker />
+                <Input
+                  {...field}
+                  data-cy='google_query_text'
+                  value={field.value ?? ""}
+                  placeholder='Enter google query text...'
+                />
               </FormControl>
-              <FormDescription>AI Release Date</FormDescription>
+              <FormDescription>
+                Text to Search on Google ** HELP!! I FORGOT WHAT THIS WAS FOR :D
+                **{" "}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
+        <FormField
+          control={form.control}
+          name='AI_release_date'
+          render={({ field }) => (
+            <FormItem className='flex flex-col'>
+              <FormLabel>AI Release Date</FormLabel>
+              <DatePicker
+                onChange={field.onChange}
+                value={field.value ?? undefined}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name='complexity_level'
