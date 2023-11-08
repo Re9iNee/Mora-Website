@@ -52,7 +52,7 @@ export async function updateAiById(data: AI, id?: string): Promise<PrismaAI> {
       data: {
         ...result,
         tags: { set: [...tags] },
-        video: { connect: { id: video?.id } },
+        video: video ? { connect: { id: video.id } } : {},
       },
     });
 

@@ -107,7 +107,7 @@ model AI {
   video             Video?          @relation(fields: [videoId], references: [id])
   videoId           String?         @db.ObjectId
   google_query_text String?
-  logo              Bytes?          @db.BinData
+  logo              String?
   logo_alt          String?
 
   // below fields are Totally optional

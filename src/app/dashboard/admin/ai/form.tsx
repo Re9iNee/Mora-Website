@@ -24,8 +24,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Uploader } from "@/components/ui/uploader";
+import { toast } from "@/components/ui/use-toast";
 import { ComplexityLevel, AI as PrismaAi } from "@prisma/client";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ErrorToast, SuccessToast } from "../components/toast";
 import TagSelect from "../tag/select";
@@ -75,6 +79,23 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
     setIsLoading(false);
   };
 
+  const onUploadFinished = (url: string) => {
+    form.setValue("logo", url);
+
+    toast({
+      title: "File uploaded",
+      description: (
+        <Link
+          href={url}
+          target='_blank'
+          className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+        >
+          Link
+        </Link>
+      ),
+    });
+  };
+
   return (
     <Form {...form}>
       <form
@@ -83,6 +104,57 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
         className='space-y-8'
         onSubmit={form.handleSubmit(submitHandler)}
       >
+        {form.getValues("logo") && (
+          <div className='grid place-items-center'>
+            <Image
+              width={150}
+              height={150}
+              src={form.getValues("logo")!}
+              alt={form.getValues("logo_alt") ?? "AI Logo"}
+              className='rounded-full border-2 border-gray-200 dark:border-gray-800 aspect-square'
+            />
+          </div>
+        )}
+
+        <FormField
+          name='logo'
+          control={form.control}
+          render={() => {
+            return (
+              <FormItem>
+                <FormLabel>Logo</FormLabel>
+                <FormControl>
+                  <Uploader onUploadFinished={onUploadFinished} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+        <FormField
+          control={form.control}
+          name='logo_alt'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Logo Alt Text</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  data-cy='logo_alt'
+                  value={field.value ?? ""}
+                  placeholder='Enter AI Logo Alt Text'
+                />
+              </FormControl>
+              <FormDescription>
+                This is for screen readers and the fallback in case logo
+                doesn&apos;t load
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name='title'

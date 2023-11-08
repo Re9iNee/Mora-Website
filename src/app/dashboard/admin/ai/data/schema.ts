@@ -16,6 +16,7 @@ export const AiSchema = z.object({
   version: z.string().nullish(),
   logo_alt: z.string().nullish(),
   title: z.string().min(3).max(50),
+  logo: z.string().url().nullish(),
   AI_release_date: z.date().nullish(),
   usage_link: z.string().url().nullish(),
   origin_website: z.string().url().nullish(),
