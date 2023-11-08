@@ -137,9 +137,10 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
               <FormLabel>Usage Link</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
+                  value={field.value ?? ""}
                   data-cy='usage_link'
                   placeholder='https://example.com/app#'
-                  {...field}
                 />
               </FormControl>
               <FormDescription>This links directly to use AI.</FormDescription>
@@ -155,9 +156,10 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
               <FormLabel>Origin Website</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
+                  value={field.value ?? ""}
                   data-cy='origin_website'
                   placeholder='https://example.com'
-                  {...field}
                 />
               </FormControl>
               <FormDescription>
@@ -174,7 +176,12 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
             <FormItem>
               <FormLabel>Version</FormLabel>
               <FormControl>
-                <Input data-cy='version' placeholder='1.0.0' {...field} />
+                <Input
+                  {...field}
+                  data-cy='version'
+                  placeholder='1.0.0'
+                  value={field.value ?? ""}
+                />
               </FormControl>
               <FormDescription>AI Version</FormDescription>
               <FormMessage />
