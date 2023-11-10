@@ -7,11 +7,16 @@ const Footer = () => {
     <footer
       className='max-w-screen-xl px-4 py-6 flex flex-col gap-6 text-left  bg-neutral-100 rounded-t-largest footer-shadow-mobile dark:bg-gray-800
       md:px-8 md:gap-8
+      lg:px-16 lg:gap-10 lg:pt-12
       xl:mx-auto
       '
     >
       {/* Brand info */}
-      <section className='text-left flex flex-col gap-4 sm:col-span-12'>
+      <section
+        className='text-left flex flex-col gap-4 sm:col-span-12
+        lg:flex-row lg:justify-between lg:gap-24
+        '
+      >
         <section className='flex flex-col gap-2'>
           <h2
             className='gradient-logo font-anurati text-4xl font-black
@@ -28,7 +33,7 @@ const Footer = () => {
             Do More with Less Work
           </h4>
         </section>
-        <section>
+        <section className='lg:w-96 lg:h-28'>
           <h3 className='font-bold text-neutral-800 text-base'>
             What is Mora?
           </h3>
@@ -56,7 +61,8 @@ const Footer = () => {
 
         <section
           className='flex flex-col gap-3 
-          md:flex-grow'
+          lg:w-96 lg:h-28
+          '
         >
           <h3 className='text-neutral-800 font-bold'>
             Subscribe to get updates
