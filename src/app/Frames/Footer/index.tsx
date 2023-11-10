@@ -6,6 +6,7 @@ const Footer = () => {
   return (
     <footer
       className='max-w-screen-xl px-4 py-6 flex flex-col gap-6 text-left  bg-neutral-100 rounded-t-largest footer-shadow-mobile dark:bg-gray-800
+      md:px-8 md:gap-8
       xl:mx-auto
       '
     >
@@ -39,7 +40,10 @@ const Footer = () => {
         </section>
       </section>
 
-      <section className='flex flex-col gap-4'>
+      <section
+        className='flex flex-col gap-4 
+        md:flex-row md:justify-between md:gap-24'
+      >
         <section className='flex flex-col gap-2'>
           <h3 className='text-neutral-800 font-bold text-lg'>Find us on</h3>
           {/* footer links */}
@@ -50,7 +54,10 @@ const Footer = () => {
           </section>
         </section>
 
-        <section className='flex flex-col gap-3'>
+        <section
+          className='flex flex-col gap-3 
+          md:flex-grow'
+        >
           <h3 className='text-neutral-800 font-bold'>
             Subscribe to get updates
           </h3>

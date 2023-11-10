@@ -4,9 +4,7 @@ const EmailSignUpInput = ({ maxLength }: ComponentProps<"input">) => {
   return (
     <div
       className='hidden relative rounded-3xl shadow-sm
-            sm:block sm:col-span-10 sm:col-start-2
-            md:col-span-8 md:col-start-3
-            xl:col-span-6 xl:col-start-4
+            sm:block
             '
     >
       <input
