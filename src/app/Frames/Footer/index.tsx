@@ -6,7 +6,6 @@ const Footer = () => {
   return (
     <footer
       className='max-w-screen-xl px-4 py-6 flex flex-col gap-6 text-left  bg-neutral-100 rounded-t-largest footer-shadow-mobile dark:bg-gray-800
-      sm:grid sm:grid-cols-12
       xl:mx-auto
       '
     >
