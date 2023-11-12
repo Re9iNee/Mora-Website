@@ -34,3 +34,15 @@ export function getS3ObjectURLFromKey(key: string) {
 
   return url.toString();
 }
+
+export function getImagePlaceholderUrl(): string {
+  return "https://mora-uploads.s3.eu-central-1.amazonaws.com/download/logo-2.png";
+}
+
+export function getGoogleQueryTextUrl(query: string | null): string {
+  if (!query) return "#";
+  return `https://www.google.com/search?&q=${query
+    .trim()
+    .split(" ")
+    .join("+")}`;
+}
