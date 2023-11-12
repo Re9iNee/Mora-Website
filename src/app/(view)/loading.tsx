@@ -1,10 +1,8 @@
-import React from "react";
-
 function Loading() {
   return (
     <section
       role='status'
-      className='max-w-screen-xl w-full min-h-screen flex items-center justify-center'
+      className='w-full min-h-screen flex items-center justify-center'
     >
       <svg
         aria-hidden='true'
