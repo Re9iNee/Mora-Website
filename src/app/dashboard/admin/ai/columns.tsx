@@ -98,6 +98,15 @@ export const columns: ColumnDef<AIWithTags>[] = [
             >
               Copy AI Id
             </DropdownMenuItem>
+            <Link
+              replace={true}
+              target='_blank'
+              href={`/ai/${row.original.slug}`}
+            >
+              <DropdownMenuItem className='cursor-pointer'>
+                See Page
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               data-cy='delete-btn'
