@@ -66,7 +66,9 @@ function AIView({ data }: Props) {
               <h1 className='text-xl font-extrabold'>{data.title}</h1>
               <div className='flex gap-4 justify-between text-sm font-semibold'>
                 <h3 className='leading-tight'>Level</h3>
-                <h3 className='text-purple-700'>{data.complexity_level}</h3>
+                <h3 className='text-purple-700 dark:text-purple-400'>
+                  {data.complexity_level}
+                </h3>
               </div>
               <div className='flex gap-2'>
                 {data.tags.map((tag) => (
@@ -92,7 +94,7 @@ function AIView({ data }: Props) {
             </Link>
           </div>
         </div>
-        <div className='text-neutral-600 text-sm leading-tight'>
+        <div className='text-neutral-600 text-sm leading-tight dark:text-neutral-200'>
           {data.body}
         </div>
       </section>
