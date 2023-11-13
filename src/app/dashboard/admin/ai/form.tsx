@@ -81,7 +81,11 @@ function AiForm({ initialValues, actionFn }: FormProps<PrismaAi, AI>) {
   };
 
   const onUploadFinished = (url: string) => {
-    form.setValue("logo", url);
+    form.setValue("logo", url, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
 
     toast({
       title: "File uploaded",

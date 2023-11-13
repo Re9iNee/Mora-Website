@@ -6,6 +6,19 @@ import { prisma } from "@/lib/prisma";
 import { AI as PrismaAI } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
+export async function getAiBySlug({
+  slug,
+}: {
+  slug: string;
+}): Promise<AIModel | null> {
+  const ai = await prisma.aI.findUnique({
+    where: { slug },
+    include: { tags: true, video: true },
+  });
+
+  return ai;
+}
+
 export async function getAIsByTitle({ title }: { title: string }) {
   const ais = await prisma.aI.findMany({
     take: 10,

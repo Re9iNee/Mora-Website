@@ -1,7 +1,7 @@
-import BlogCard from "@/app/components/BlogCard";
+import BlogCard from "@/app/(view)/components/BlogCard";
 
 import React from "react";
-import blogPosts from "../../../../__mocks__/BlogPosts.json";
+import blogPosts from "../../../../../__mocks__/BlogPosts.json";
 
 const MasterYourAi = () => {
   return (
