@@ -28,8 +28,9 @@ export async function getAIsByTitle({ title }: { title: string }) {
   return ais;
 }
 
-export async function getAllAIs(): Promise<AIWithTags[]> {
+export async function getAllAIs(take?: number): Promise<AIWithTags[]> {
   const AIs: AIWithTags[] = await prisma.aI.findMany({
+    take: take,
     include: { tags: true },
     orderBy: { date_created: "desc" },
   });
