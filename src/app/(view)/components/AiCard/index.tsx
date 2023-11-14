@@ -21,19 +21,19 @@ const AICard = ({
   return (
     <div
       className='flex flex-col gap-2 p-3 bg-neutral-50 rounded-2xl mt-4 
-            sm:flex-row
-            dark:bg-gray-800
-            '
+      sm:flex-row
+      dark:bg-gray-800
+      '
     >
       <div
-        className='bg-white rounded-lg grid place-items-center py-8 shadow
-                sm:p-8
-                dark:bg-slate-900
-                '
+        className='bg-white rounded-xl justify-center items-center inline-flex shadow w-full h-28 relative
+        sm:p-8 sm:w-28 sm:h-28
+        dark:bg-slate-900
+        '
       >
         <Image
-          width={40}
-          height={40}
+          fill
+          objectFit='contain'
           src={logo ?? getImagePlaceholderUrl()}
           alt={logo_alt ?? "logo icon for AI"}
         />
@@ -51,8 +51,8 @@ const AICard = ({
             href={`/ai/${slug}`}
             target='_blank'
             className='text-purple-500 dark:text-slate-50 text-xs font-semibold 
-                        sm:inline-flex sm:items-center sm:p-1 sm:gap-1
-                        '
+            sm:inline-flex sm:items-center sm:p-1 sm:gap-1
+            '
           >
             <span className='hidden sm:block'>Check it out</span>
             <IoIosArrowForward className='text-xl' />
@@ -66,7 +66,9 @@ const AICard = ({
           ))}
         </div>
 
-        <h5 className='text-xs p-1 dark:text-gray-400 line-clamp-1'>{body}</h5>
+        <h5 className='text-xs p-1 dark:text-gray-400 line-clamp-1'>
+          {body.split(" ").slice(0, 15).join(" ")}...
+        </h5>
       </div>
     </div>
   );
