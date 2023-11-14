@@ -1,7 +1,9 @@
 import AICard from "@/app/(view)/components/AiCard";
-import React from "react";
+import { getAllAIs } from "@/services/ai.service";
 
-const DiscoverLatestAi = () => {
+const DiscoverLatestAi = async () => {
+  const recentAIs = await getAllAIs(3);
+
   return (
     <section
       className='custom-gradient mt-8 p-4 pb-8 max-w-screen-xl
@@ -31,9 +33,9 @@ const DiscoverLatestAi = () => {
       </h1>
 
       <div>
-        <AICard link='https://google.com' />
-        <AICard link='https://google.com' />
-        <AICard link='https://google.com' />
+        {recentAIs.map((ai) => (
+          <AICard key={ai.id} {...ai} />
+        ))}
       </div>
 
       <h3

@@ -1,8 +1,11 @@
 import Chip from "@/app/(view)/components/Chip";
 import SearchInput from "@/app/(view)/components/SearchInput";
+import { getAllTags } from "@/services/tag.service";
 import React from "react";
 
-const HeroFrame = () => {
+const HeroFrame = async () => {
+  const recentTags = await getAllTags(5);
+
   return (
     <section
       className='mx-4 flex flex-col gap-1 mt-8 max-w-screen-xl
@@ -21,11 +24,9 @@ const HeroFrame = () => {
                 xl:col-span-6 xl:col-start-4
                 '
       >
-        <Chip>Video generating ai</Chip>
-        <Chip>Photo editing</Chip>
-        <Chip>Coding</Chip>
-        <Chip>Social media</Chip>
-        <Chip>Dating</Chip>
+        {recentTags.map((tag) => (
+          <Chip key={tag.id}>{tag.name}</Chip>
+        ))}
       </div>
     </section>
   );
