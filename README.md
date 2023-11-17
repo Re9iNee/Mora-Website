@@ -73,6 +73,7 @@ The project is actively developed, and new features may be added in the future.
 - [X] Admin Dashboard
 - [X] Managing Tags.
 - [X] Tags Select.
+- [ ] Blog Posts.
 - [ ] Connecting APIs.
 - [ ] Client Pages.
 - [ ] Questions.
